@@ -14,9 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::get('/location', function () {
+    $data = \Location::get('103.57.36.223');
+
+    dd($data);
 });
 
 Auth::routes();
+Route::get('auth/google', 'Auth\Socialite\GoogleController@redirectToGoogle');
+Route::get('auth/google/callback', 'Auth\Socialite\GoogleController@handleGoogleCallback');
 
 Route::get('/home', 'HomeController@index')->name('home');
