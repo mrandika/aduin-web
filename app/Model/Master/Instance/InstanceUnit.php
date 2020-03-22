@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class InstanceUnit extends Model
 {
     protected $table = 'instance_units';
-    protected $fillable = ['instances_id', 'instance_types_id', 'instance_services_id', 'm_zone_provinces_id', 'm_zone_districts_id', 'm_zone_subdistricts_id', 'name', 'address'];
+    protected $fillable = ['instances_id', 'instance_types_id', 'instance_services_id', 'm_zone_provinces_id', 'm_zone_districts_id', 'm_zone_subdistricts_id', 'users_id', 'name', 'address'];
 
     public function reports()
     {

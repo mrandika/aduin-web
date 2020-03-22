@@ -16,11 +16,12 @@ class CreateInstanceUnitsTable extends Migration
         Schema::create('instance_units', function (Blueprint $table) {
             $table->id();
             $table->foreignId('instances_id')->constrained()->onDelete('cascade');
-            $table->foreignId('instance_types_id')->constrained()->onDelete('cascade');
-            $table->foreignId('instance_services_id')->constrained()->onDelete('cascade');
+            $table->foreignId('m_data_instance_types_id')->constrained()->onDelete('cascade');
+            $table->foreignId('m_data_instance_services_id')->constrained()->onDelete('cascade');
             $table->foreignId('m_zone_provinces_id')->constrained()->onDelete('cascade');
             $table->foreignId('m_zone_districts_id')->constrained()->onDelete('cascade');
             $table->foreignId('m_zone_subdistricts_id')->constrained()->onDelete('cascade');
+            $table->foreignId('users_id')->constrained();
             $table->string('name');
             $table->text('address');
             $table->timestamps();

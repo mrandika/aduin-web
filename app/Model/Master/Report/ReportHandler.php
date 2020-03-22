@@ -14,8 +14,8 @@ class ReportHandler extends Model
         return $this->belongsTo(Report::class, 'reports_id');
     }
 
-    public function user()
+    public function handler()
     {
-        return $this->belongsTo(User::class, 'users_id');
+        return $this->belongsTo(InstanceHandler::class, 'instance_unit_handlers_id');
     }
 }

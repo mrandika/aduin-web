@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class InstanceType extends Model
 {
-    protected $table = 'instance_types';
+    protected $table = 'm_data_instance_types';
     protected $fillable = ['index', 'name'];
+
+    public $timestamps = false;
 
     public function instances()
     {
