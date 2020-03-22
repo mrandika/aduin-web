@@ -11,13 +11,23 @@ class Subdistrict extends Model
 
     public $timestamps = false;
 
-    public function provinces()
+    public function province()
     {
-        return $this->belongsTo(Province::class);
+        return $this->belongsTo(Province::class, 'm_zone_provinces_id');
     }
 
-    public function districts()
+    public function district()
     {
-        return $this->belongsTo(Subdistrict::class);
+        return $this->belongsTo(District::class, 'm_zone_districts_id');
+    }
+
+    public function instances()
+    {
+        return $this->hasMany(Instance::class, 'm_zone_subdistricts_id');
+    }
+
+    public function units()
+    {
+        return $this->hasMany(InstanceUnit::class, 'm_zone_subdistricts_id');
     }
 }

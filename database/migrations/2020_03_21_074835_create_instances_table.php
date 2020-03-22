@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubdistrictsTable extends Migration
+class CreateInstancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateSubdistrictsTable extends Migration
      */
     public function up()
     {
-        Schema::create('m_zone_subdistricts', function (Blueprint $table) {
+        Schema::create('instances', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('instance_types_id')->constrained()->onDelete('cascade');
+            $table->foreignId('instance_services_id')->constrained()->onDelete('cascade');
             $table->foreignId('m_zone_provinces_id')->constrained()->onDelete('cascade');
             $table->foreignId('m_zone_districts_id')->constrained()->onDelete('cascade');
-            $table->string('index');
+            $table->foreignId('m_zone_subdistricts_id')->constrained()->onDelete('cascade');
             $table->string('name');
+            $table->text('address');
+            $table->timestamps();
         });
-
-        DB::unprepared(file_get_contents("database/seeds/file/m_zone_subdistricts.sql"));
     }
 
     /**
@@ -31,6 +33,6 @@ class CreateSubdistrictsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_zone_subdistricts');
+        Schema::dropIfExists('instances');
     }
 }

@@ -23,6 +23,11 @@ Route::get('/location', function () {
     dd($data);
 });
 
+Route::get('/data/district', function() {
+    $province = \App\Model\Master\Zone\Province::where('id', 11)->with('districts')->get();
+    dd($province);
+});
+
 Auth::routes();
 Route::get('auth/google', 'Auth\Socialite\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\Socialite\GoogleController@handleGoogleCallback');
