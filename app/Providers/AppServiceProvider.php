@@ -33,14 +33,16 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('reportstatus', function ($expression) {
             list($status) = $expression;
 
-            switch($status) {
-                case 0:
-                    return "Ditutup";
-                break;
-                    case 1:
-                        "Aktif";
-                    break;
-            }
+            return $expression;
+
+            // switch((int)$status) {
+            //     case 0:
+            //         return "Ditutup";
+            //     break;
+            //         case 1:
+            //             return "Aktif";
+            //         break;
+            // }
         });
     }
 }

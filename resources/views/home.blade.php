@@ -39,6 +39,13 @@
             </div>
 
         </div>
+        <div class="float-right">
+            <nav>
+                <ul class="pagination">
+                    {{ $reports->links() }}
+                </ul>
+            </nav>
+        </div>
     </section>
 </div>
 @endsection
