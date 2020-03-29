@@ -27,7 +27,7 @@ class GoogleController extends Controller
             if ($user) {
                 Auth::login($user);
     
-                return redirect('/home');
+                return redirect('/');
      
             } else {
                 $newUser = User::create([

@@ -15,21 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/location', function () {
-    $data = \Location::get('103.57.36.223');
-
-    dd($data);
-});
-
-Route::get('/data/district', function() {
-    $province = \App\Model\Master\Zone\Province::where('id', 11)->with('districts')->get();
-    dd($province);
-});
-
 Route::prefix('user')->group(function () {
-    Route::get('', 'User\HomeController@index')->name('user.index');
+    // TODO ...
 });
 
 Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout');
 Route::get('auth/google', 'Auth\Socialite\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\Socialite\GoogleController@handleGoogleCallback');

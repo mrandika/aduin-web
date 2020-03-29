@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use App\User;
+use App\Model\Master\Report\Report;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth')->except('index');
     }
 
     /**
@@ -24,8 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role == 1 || !Auth::check()) {
-            return redirect(action('User\HomeController@index'));
-        }
+        $reports = Report::active()->with(['user', 'instance', 'unit'])->get();
+        return view('home')->with([
+            'reports' => $reports
+        ]);
     }
 }
