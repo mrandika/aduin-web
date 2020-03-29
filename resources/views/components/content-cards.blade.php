@@ -5,17 +5,16 @@
             <img alt="image" src="assets/img/avatar/avatar-1.png">
             <div class="article-user-details">
                 <div class="user-detail-name">
-                    <a href="#">Hasan Basri</a>
+                    <a href="#">{{ $item->user->first_name }} {{ $item->user->last_name }}</a>
                 </div>
-                <div class="text-job">Web Developer</div>
+            <div class="text-job">@ymddate($item->created_at), Diajukan ke {{ $item->instance->name }}</div>
             </div>
         </div>
         <div class="article-title">
-            <h2><a href="#">Excepteur sint occaecat cupidatat non proident</a></h2>
+            <h2><a href="#">{{ $item->title }}</a></h2>
         </div>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. </p>
-        <div class="article-category"><a href="#">News</a>
+        <p>{{ $item->content }} </p>
+        <div class="article-category"><a href="#">{{ $item->status }}</a>
             <div class="bullet"></div> <a href="#">5 Days</a>
         </div>
     </div>

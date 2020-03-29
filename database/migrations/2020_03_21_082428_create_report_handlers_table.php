@@ -16,7 +16,8 @@ class CreateReportHandlersTable extends Migration
         Schema::create('report_handlers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('reports_id')->constrained()->onDelete('cascade');
-            $table->foreignId('instance_unit_handlers_id')->constrained()->onDelete('cascade');
+            $table->foreignId('instance_handlers_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('instance_unit_handlers_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

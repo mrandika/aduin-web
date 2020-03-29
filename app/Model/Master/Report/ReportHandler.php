@@ -11,11 +11,11 @@ class ReportHandler extends Model
 
     public function report()
     {
-        return $this->belongsTo(Report::class, 'reports_id');
+        return $this->belongsTo(App\Model\Master\Report\Report::class, 'reports_id');
     }
 
     public function handler()
     {
-        return $this->belongsTo(InstanceHandler::class, 'instance_unit_handlers_id');
+        return $this->belongsTo(App\Model\Master\Instance\InstanceHandler::class, 'instance_unit_handlers_id');
     }
 }

@@ -11,11 +11,11 @@ class ReportAction extends Model
 
     public function report()
     {
-        return $this->belongsTo(Report::class, 'reports_id');
+        return $this->belongsTo(App\Model\Master\Report\Report::class, 'reports_id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id');
+        return $this->belongsTo(App\User::class, 'users_id');
     }
 }

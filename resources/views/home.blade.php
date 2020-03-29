@@ -28,11 +28,7 @@
                         <textarea class="summernote"></textarea>
                     </x-card>
 
-                    @php
-                        $data = [1,1,1,1,1,1,1,1];
-                    @endphp
-
-                    <x-content-cards :contents="$data" />
+                    <x-content-cards :contents="$reports" />
                 </div>
 
                 <div class="col-md-4">

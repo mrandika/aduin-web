@@ -5,6 +5,8 @@ use App\Model\Master\Instance\InstanceUnitHandler;
 use App\Model\Master\Zone\District;
 use App\Model\Master\Zone\Province;
 use App\Model\Master\Zone\Subdistrict;
+use App\Model\Master\Report\Report;
+use App\Model\Master\Report\ReportHandler;
 use App\User;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
@@ -50,6 +52,26 @@ class InstanceUnitsSeeder extends Seeder
             $unit->address = "Jl. $subdistrict No. $q";
             $unit->save();
 
+            $user = new User;
+            $user->username = $faker->userName;
+            $user->first_name = $faker->firstName;
+            $user->last_name = $faker->lastName;
+            $user->photo_url = url('assets/img/avatar/avatar-3.png');
+            $user->email = $faker->email;
+            $user->password = bcrypt('masyarakatumum');
+            $user->role = '1';
+            $user->status = 1;
+            $user->save();
+
+            $report = new Report;
+            $report->users_id = $user->id;
+            $report->instances_id = $q;
+            $report->title = "Laporan dari $user->username untuk unit instansi ID #$q";
+            $report->content = "Lorem dorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem dorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem dorem ipsum dolor sit amet, consectetur adipisicing elit.";
+            $report->seen_count = 0;
+            $report->status = 1;
+            $report->save();
+
             for ($i = 1; $i <= 2; $i++) { 
                 $handler = new User;
                 $handler->username = $faker->userName;
@@ -57,15 +79,20 @@ class InstanceUnitsSeeder extends Seeder
                 $handler->last_name = $faker->lastName;
                 $handler->photo_url = url('assets/img/avatar/avatar-2.png');
                 $handler->email = $faker->email;
-                $handler->password = bcrypt('petugasinstansipemprov');
+                $handler->password = bcrypt('petugasunitinstansipemprov');
                 $handler->role = '2';
                 $handler->status = 1;
                 $handler->save();
 
-                $instance_handler = new InstanceUnitHandler;
-                $instance_handler->users_id = $handler->id;
-                $instance_handler->instance_units_id = $unit->id;
-                $instance_handler->save();
+                $instance_unit_handler = new InstanceUnitHandler;
+                $instance_unit_handler->users_id = $handler->id;
+                $instance_unit_handler->instance_units_id = $unit->id;
+                $instance_unit_handler->save();
+
+                $report_handler = new ReportHandler;
+                $report_handler->reports_id = $report->id;
+                $report_handler->instance_unit_handlers_id = $instance_unit_handler->id;
+                $report_handler->save();
             }
         }
     }
