@@ -36,11 +36,12 @@
                             </div>
 
                             <div class="card-body">
-                                <form method="POST" action="{{ route('login') }}" class="needs-validation"
+                                <form method="POST" action="{{ route('aduin.login') }}" class="needs-validation"
                                     novalidate="">
+                                    @csrf
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="email"
+                                        <label for="email">Email atau Username</label>
+                                        <input id="email" type="text"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
                                             value="{{ old('email') }}" required autocomplete="email" autofocus
                                             tabindex="1">
