@@ -15,8 +15,25 @@
             <h2><a href="#">{{ $item->title }}</a></h2>
         </div>
         <p>{{ $item->content }} </p>
-        <div class="article-category"><a href="#">Status: {{ $item->status }}</a>
-            <div class="bullet"></div> <a href="#">5 Days</a>
+
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="article-category float-right"><a href="#">Status: {{ $item->status }}</a>
+                    <div class="bullet"></div> <a href="#">5 Days</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="article-category"><a href="#">{{ $item->actions_count }} Aksi</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="article-category"><a href="#">{{ $item->comments_count }} Komentar</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="article-category"><a href="#">{{ $item->supports_count }} Dukungan</a>
+                </div>
+            </div>
         </div>
     </div>
 </article>

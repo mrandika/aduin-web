@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $reports = Report::active()->with(['user', 'instance', 'unit'])->paginate(15);
+        $reports = Report::active()->relation()->paginate(15);
         return view('home')->with([
             'reports' => $reports
         ]);

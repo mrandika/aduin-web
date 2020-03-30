@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
+use Auth;
+
 class RegisterController extends Controller
 {
     /*
@@ -75,36 +77,27 @@ class RegisterController extends Controller
     public function aduin_register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:posts|max:255',
-            'body' => 'required',
             'username' => 'required|unique:users|max:50',
             'first_name' => 'required|max:191',
             'last_name' => 'required|max:191',
             'email' => 'required|unique:users|max:191',
-            'password' => 'required|confirmed|min:6',
-            'password_confirm' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6'
         ]);
 
         if ($validator->fails()) {
-            return redirect('/login')
+            return redirect('/register')
                         ->withErrors($validator)
                         ->withInput();
         }
 
-        $password = $request->post('password');
-        $confirmed_password = $request->post('password_confirm');
-
-
-        if ($password == $confirmed_password){
-            $newUser = User::create([
-                $username = $request->post('username'),
-                $first_name = $request->post('first_name'),
-                $last_name = $request->post('last_name'),
-                $email = $request->post('email'),
-                $password = bcrypt($request->post('password')),
-                $confirmed_password = $request->post('password_confirm')
-            ]);
-        }
+        $newUser = User::create([
+            'username' => $request->post('username'),
+            'first_name' => $request->post('first_name'),
+            'last_name' => $request->post('last_name'),
+            'email' => $request->post('email'),
+            'password' => bcrypt($request->post('password')),
+            'confirmed_password' => $request->post('password_confirm')
+        ]);
 
         Auth::login($newUser);
 

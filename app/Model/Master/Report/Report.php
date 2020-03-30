@@ -14,24 +14,34 @@ class Report extends Model
         return $query->where('status', '>', 0);
     }
 
+    public function scopeRelation($query) 
+    {
+        return $query->with(['user', 'instance', 'unit'])->withCount(['comments', 'actions', 'supports']);
+    }
+
+    public function scopeId($query, $id) 
+    {
+        return $query->where('id', $id)->first();
+    }
+
     public function actions()
     {
-        return $this->hasMany(App\Model\Master\Report\ReportAction::class, 'reports_id');
+        return $this->hasMany(\App\Model\Master\Report\ReportAction::class, 'reports_id');
     }
 
     public function comments()
     {
-        return $this->hasMany(App\Model\Master\Report\ReportComment::class, 'reports_id');
+        return $this->hasMany(\App\Model\Master\Report\ReportComment::class, 'reports_id');
     }
 
     public function handlers()
     {
-        return $this->hasMany(App\Model\Master\Report\ReportHandler::class, 'reports_id');
+        return $this->hasMany(\App\Model\Master\Report\ReportHandler::class, 'reports_id');
     }
 
     public function supports()
     {
-        return $this->hasMany(App\Model\Master\Report\ReportSupport::class, 'reports_id');
+        return $this->hasMany(\App\Model\Master\Report\ReportSupport::class, 'reports_id');
     }
 
     public function user()
