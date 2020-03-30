@@ -21,6 +21,7 @@ Route::prefix('user')->group(function () {
 
 Auth::routes();
 Route::post('/aduin/login', 'Auth\LoginController@aduin_login')->name('aduin.login');
+Route::post('/register', 'Auth\RegisterController@aduin_register')->name('aduin.register');
 Route::get('logout', 'Auth\LoginController@logout');
 Route::get('auth/google', 'Auth\Socialite\GoogleController@redirectToGoogle');
 Route::get('auth/google/callback', 'Auth\Socialite\GoogleController@handleGoogleCallback');
