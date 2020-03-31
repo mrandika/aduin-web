@@ -24,6 +24,12 @@ Route::prefix('user')->group(function () {
     });
 });
 
+Route::prefix('admin')->group(function () {
+    Route::prefix('report')->group(function () {
+        Route::get('export/finished', 'Admin/ReportController@report_export');
+    });
+});
+
 Auth::routes();
 Route::post('/aduin/login', 'Auth\LoginController@aduin_login')->name('aduin.login');
 Route::post('/register', 'Auth\RegisterController@aduin_register')->name('aduin.register');
