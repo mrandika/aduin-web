@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Report;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromView;
 
 class FinishedReportExport implements FromView
 {
