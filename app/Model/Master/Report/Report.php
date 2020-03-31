@@ -14,6 +14,16 @@ class Report extends Model
         return $query->where('status', '>', 0);
     }
 
+    public function scopeResolved($query)
+    {
+        return $query->where('status', '=', 4);
+    }
+
+    public function scopeNewest($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
+
     public function scopeRelation($query) 
     {
         return $query->with(['user', 'instance', 'unit'])->withCount(['comments', 'actions', 'supports']);
