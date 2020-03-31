@@ -33,7 +33,7 @@ class InstancesSeeder extends Seeder
             $admin->username = $faker->userName;
             $admin->first_name = $faker->firstName;
             $admin->last_name = $faker->lastName;
-            $admin->photo_url = url('assets/img/avatar/avatar-1.png');
+            $admin->photo_url = 'assets/img/avatar/avatar-1.png';
             $admin->email = $faker->email;
             $admin->password = bcrypt('operatorinstansipemprov');
             $admin->role = '3';
@@ -55,7 +55,7 @@ class InstancesSeeder extends Seeder
             $user->username = $faker->userName;
             $user->first_name = $faker->firstName;
             $user->last_name = $faker->lastName;
-            $user->photo_url = url('assets/img/avatar/avatar-3.png');
+            $user->photo_url = 'assets/img/avatar/avatar-3.png';
             $user->email = $faker->email;
             $user->password = bcrypt('masyarakatumum');
             $user->role = '1';
@@ -76,7 +76,7 @@ class InstancesSeeder extends Seeder
                 $handler->username = $faker->userName;
                 $handler->first_name = $faker->firstName;
                 $handler->last_name = $faker->lastName;
-                $handler->photo_url = url('assets/img/avatar/avatar-2.png');
+                $handler->photo_url = 'assets/img/avatar/avatar-2.png';
                 $handler->email = $faker->email;
                 $handler->password = bcrypt('petugasinstansipemprov');
                 $handler->role = '2';

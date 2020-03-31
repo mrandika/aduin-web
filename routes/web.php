@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::prefix('user')->group(function () {
-    // TODO ...
+    Route::prefix('report')->group(function () {
+        Route::post('store', 'User\ReportController@store');
+        Route::get('show/{id}', 'User\ReportController@show');
+        Route::patch('update/{id}', 'User\ReportController@update');
+        Route::delete('delete/{id}', 'User\ReportController@destroy');
+    });
 });
 
 Route::prefix('admin')->group(function () {

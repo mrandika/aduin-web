@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Layout &rsaquo; Top Navigation &mdash; Stisla</title>
 
     <!-- General CSS Files -->
@@ -107,7 +108,8 @@
                 </form>
                 <ul class="navbar-nav navbar-right">
                     @guest
-                    <li class="nav-item"><a href="/login" class="nav-link">Masuk atau Daftar</a></li>
+                    <li class="nav-item"><a href="/login" class="nav-link">Masuk</a></li>
+                    <li class="nav-item"><a href="/register" class="nav-link">Daftar</a></li>
                     @endguest
 
                     @auth
@@ -173,8 +175,8 @@
                     </li>
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-                            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+                            <img alt="image" src="{{ Auth::user()->photo_url ?? 'assets/img/avatar/avatar-1.png' }}" class="rounded-circle mr-1">
+                            <div class="d-sm-none d-lg-inline-block">Hi, {{Auth::user()->first_name }} {{Auth::user()->last_name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-title">Logged in 5 min ago</div>
