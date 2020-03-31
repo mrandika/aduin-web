@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Stevebauman\Location\LocationServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*

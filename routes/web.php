@@ -26,8 +26,8 @@ Route::prefix('user')->group(function () {
 
 Route::prefix('admin')->group(function () {
     Route::prefix('report')->group(function () {
-        Route::get('export/finished', 'Admin/ReportController@report_export');
-        Route::get('index/table', 'Admin/ReportController@report');
+        Route::get('export/finished', 'Admin\ReportController@report_export');
+        Route::get('index/table', 'Admin\ReportController@report');
     });
 });
 
