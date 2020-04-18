@@ -12,13 +12,13 @@
                         Lainnya
                     </button>
                     <div class="dropdown-menu" x-placement="bottom-start">
-                        {{-- @if (Auth::id() == $item->user->id) --}}
+                        @if (Auth::id() == $item->user->id)
                         <a class="dropdown-item has-icon delete_report" data-id="{{ $item->id }}"
                             href="javascript:void(0)"><i class="far fa-trash"></i> Hapus</a>
                         <a class="dropdown-item has-icon update_report" data-id="{{ $item->id }}"
                             href="javascript:void(0)" data-toggle="modal" data-target="#updateModal"><i
                                 class="far fa-pen"></i> Perbarui</a>
-                        {{-- @endif --}}
+                        @endif
                         <a class="dropdown-item has-icon" href="#"><i class="far fa-thumbs-up"></i> Dukung</a>
                     </div>
                 </div>
