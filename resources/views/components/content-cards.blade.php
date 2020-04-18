@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="article-title">
-            <h2><a href="#" id="report_{{ $item->id }}_title">{{ $item->title }}</a></h2>
+            <h2><a href="{{ route('report.show', $item->id) }}" id="report_{{ $item->id }}_title">{{ $item->title }}</a></h2>
         </div>
         <p id="report_{{ $item->id }}_content">{!! $item->content !!} </p>
 

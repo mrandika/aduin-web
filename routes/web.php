@@ -18,9 +18,15 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::prefix('user')->group(function () {
     Route::prefix('report')->group(function () {
         Route::post('store', 'User\ReportController@store');
-        Route::get('show/{id}', 'User\ReportController@show');
+        Route::get('show/{id}', 'User\ReportController@show')->name('report.show');
         Route::patch('update/{id}', 'User\ReportController@update');
         Route::delete('delete/{id}', 'User\ReportController@destroy');
+
+        Route::prefix('comment')->group(function () {
+            Route::post('store', 'User\CommentController@store');
+            Route::patch('update/{id}', 'User\CommentController@update');
+            Route::delete('delete/{id}', 'User\CommentController@destroy');
+        });
     });
 });
 

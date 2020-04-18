@@ -29,7 +29,7 @@ class ReportController extends Controller
     {
         $report = Report::relation()->id($id);
 
-        return view('report/show')->with([
+        return view('reports/show')->with([
             'report' => $report
         ]);
     }
