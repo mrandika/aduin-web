@@ -103,7 +103,9 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment = ReportComment::find($id)->delete();
+        $comment = ReportComment::find($id);
+        $comment->delete();
+        
 
         return response()->json([
             'code' => 200,
