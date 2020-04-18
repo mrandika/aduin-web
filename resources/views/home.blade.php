@@ -126,10 +126,7 @@
                 url: "{{ url('user/report/store') }}",
                 data: form,
                 success: function () {
-                    swal('Okehhhhhhhh', {
-                        buttons: false,
-                        timer: 2000,
-                    });
+                    window.location.reload(false);
                 },
                 error: function (data) {
                     console.log(data);
