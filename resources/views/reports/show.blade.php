@@ -71,7 +71,7 @@
                                 <div class="ticket-content">
                                     <div class="ticket-header">
                                         <div class="ticket-sender-picture img-shadow">
-                                            <img src="assets/img/avatar/avatar-5.png" alt="image">
+                                            <img src="{{ url('assets/img/avatar/avatar-1.png')}}" alt="image">
                                         </div>
                                         <div class="ticket-detail">
                                             <div class="ticket-title">
@@ -97,23 +97,46 @@
                                     <div class="ticket-description">
                                         <p>{{ $report->content }}</p>
 
-                                        <div class="ticket-divider"></div>
+                                        <div class="ticket-divider">
+                                            
+                                        </div>
 
                                         <div class="ticket-form">
-                                          @auth
+                                            @auth
                                             <form id="comment_form">
-                                              @csrf
+                                                @csrf
                                                 <input name="report_id" type="hidden" value="{{ $report->id }}">
                                                 <div class="form-group">
                                                     <textarea class="summernote form-control" name="content"></textarea>
                                                 </div>
                                                 <div class="form-group text-right">
-                                                  <a href="javascript:void(0)" id="send_comment" class="btn btn-primary float-right"><i
-                                                    class="far fa-paper-plane"></i> Kirim </a>
+                                                    <a href="javascript:void(0)" id="send_comment"
+                                                        class="btn btn-primary float-right"><i
+                                                            class="far fa-paper-plane"></i> Kirim </a>
                                                 </div>
                                             </form>
                                             @endauth
                                         </div>
+                                        <br>
+                                        <div class="card">
+                                          <div class="card-header">
+                                              <h4>Komentar</h4>
+                                          </div>
+                                          @foreach ($report->comments as $comment)
+                                          <div class="card-body">
+                                              <div class="media">
+                                                  <img class="mr-3"
+                                                      src="{{ url('assets/img/avatar/avatar-1.png')}}"
+                                                      width="10%">
+                                                  <div class="media-body">
+                                                      <h6 class="mt-0">{{ $comment->user->first_name }}
+                                                          {{ $comment->user->last_name }}</h6>
+                                                      {!! $comment->content !!}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          @endforeach
+                                      </div>
                                     </div>
                                 </div>
                             </div>
