@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Master\Report\Report;
+use App\Model\Master\Report\ReportSupport;
 use Auth;
 
 class ReportController extends Controller
@@ -17,6 +18,24 @@ class ReportController extends Controller
     public function __construct()
     {
         $this->middleware('people')->except('update_seen_count');
+    }
+
+    public function support_report($id)
+    {
+        $support = new ReportSupport;
+        $support->reports_id = $id;
+        $support->users_id = Auth::id();
+        $support->save();
+
+        return response()->json($support);
+    }
+
+    public function unsupport_report($id)
+    {
+        $support = ReportSupport::where(['reports_id' => $id, 'users_id' => Auth::id()])->first();
+        $support->delete();
+
+        return response()->json($support);
     }
 
     /**

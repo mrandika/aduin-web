@@ -19,7 +19,7 @@ class CreateReportsTable extends Migration
             $table->foreignId('instances_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('instance_units_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('title');
-            $table->text('content');
+            $table->longText('content');
             $table->bigInteger('seen_count')->default(0);
             $table->boolean('status')->default(1);
             $table->timestamps();

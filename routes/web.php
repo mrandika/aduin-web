@@ -27,14 +27,27 @@ Route::prefix('user')->group(function () {
             Route::patch('update/{id}', 'User\CommentController@update');
             Route::delete('delete/{id}', 'User\CommentController@destroy');
         });
+        
+        Route::post('support/{id}', 'User\ReportController@support_report');
+        Route::delete('unsupport/{id}', 'User\ReportController@unsupport_report');
     });
 });
 
 Route::prefix('admin')->group(function () {
+    Route::get('', 'Admin\ReportController@index')->name('admin.home.statistic');
     Route::get('code/qr', 'Admin\ReportController@generate_qr');
+
     Route::prefix('report')->group(function () {
+        Route::prefix('handler')->group(function () {
+            Route::post('store', 'Admin\ReportHandlerController@store');
+        });
+
         Route::get('export/finished', 'Admin\ReportController@report_export');
         Route::get('index/table', 'Admin\ReportController@report');
+
+        Route::get('unhandled', 'Admin\ReportController@index_unhandled')->name('admin.report.unhandled');
+        Route::get('handled', 'Admin\ReportController@index_handled')->name('admin.report.handled');
+        Route::get('finished', 'Admin\ReportController@index_finished')->name('admin.report.resolved');
     });
 });
 

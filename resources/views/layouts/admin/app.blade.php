@@ -5,35 +5,29 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Layout &rsaquo; Top Navigation &mdash; Stisla</title>
+    <title>Layout &rsaquo; Admin Navigation &mdash; Stisla</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ url('assets/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('assets/modules/fontawesome/css/all.min.css') }}">
 
     <!-- CSS Libraries -->
-    @stack('css')
+    @stack('admin-css')
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ url('assets/css/components.css') }}">
 </head>
 
-<body class="layout-3">
+<body>
     <div id="app">
-        <div class="main-wrapper container">
+        <div class="main-wrapper main-wrapper-1">
             <div class="navbar-bg"></div>
             <nav class="navbar navbar-expand-lg main-navbar">
-                <a href="index.html" class="navbar-brand sidebar-gone-hide">{{ env('APP_NAME') }}</a>
-                <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
-                <div class="nav-collapse">
-                    <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </a>
-                    <ul class="navbar-nav">
-                        @yield('dashboardItem')
-                    </ul>
-                </div>
+                <ul class="navbar-nav mr-3">
+                    <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                    <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+                  </ul>
                 <form class="form-inline ml-auto">
                     <ul class="navbar-nav">
                         <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
@@ -201,16 +195,12 @@
                 </ul>
             </nav>
 
-            <nav class="navbar navbar-secondary navbar-expand-lg">
-                <div class="container">
-                    <ul class="navbar-nav">
-                        @yield('dashboardNav')
-                    </ul>
-                </div>
-            </nav>
+            <div class="main-sidebar sidebar-style-2">
+                @yield('admin-dashboardNav')
+            </div>
 
             <!-- Main Content -->
-            @yield('content')
+            @yield('admin-content')
 
             <footer class="main-footer">
                 <div class="footer-left">
@@ -234,10 +224,10 @@
     <script src="{{ url('assets/js/stisla.js') }}"></script>
 
     <!-- JS Libraies -->
-    @stack('js-lib')
+    @stack('admin-js-lib')
 
     <!-- Page Specific JS File -->
-    @stack('js')
+    @stack('admin-js')
 
     <!-- Template JS File -->
     <script src="{{ url('assets/js/scripts.js') }}"></script>
