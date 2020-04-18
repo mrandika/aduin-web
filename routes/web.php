@@ -21,10 +21,14 @@ Route::prefix('user')->group(function () {
         Route::get('show/{id}', 'User\ReportController@show');
         Route::patch('update/{id}', 'User\ReportController@update');
         Route::delete('delete/{id}', 'User\ReportController@destroy');
+
+        Route::post('support/{id}', 'User\ReportController@support_report');
+        Route::delete('unsupport/{id}', 'User\ReportController@unsupport_report');
     });
 });
 
 Route::prefix('admin')->group(function () {
+    Route::get('', 'Admin\ReportController@index');
     Route::get('code/qr', 'Admin\ReportController@generate_qr');
     Route::prefix('report')->group(function () {
         Route::get('export/finished', 'Admin\ReportController@report_export');

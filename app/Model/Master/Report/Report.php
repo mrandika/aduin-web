@@ -14,9 +14,19 @@ class Report extends Model
         return $query->where('status', '>', 0);
     }
 
+    public function scopeUnhandled($query) 
+    {
+        return $query->where('status', '=', 1);
+    }
+
+    public function scopeHandled($query) 
+    {
+        return $query->where('status', '=', 2);
+    }
+
     public function scopeResolved($query)
     {
-        return $query->where('status', '=', 4);
+        return $query->where('status', '=', 3);
     }
 
     public function scopeNewest($query)

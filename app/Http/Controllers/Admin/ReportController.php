@@ -12,6 +12,25 @@ use QrCode;
 
 class ReportController extends Controller
 {
+    public function _getReportCounts() 
+    {
+        $report = Report::active();
+
+        return [
+            'unhandled' => $report->unhandled()->count(),
+            'handled' => $report->handled()->count(),
+            'finished' => $report->resolved()->count(),
+            'total' => $report->count()
+        ];
+    }
+
+    public function index() 
+    {
+        return view('admin/home')->with([
+            'count' => $this->_getReportCounts()
+        ]);
+    }
+
     public function report_export()
     {
         return Excel::download(new FinishedReportExport, 'Finish Report.xlsx');

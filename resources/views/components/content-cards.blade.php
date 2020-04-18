@@ -1,3 +1,37 @@
+@push('css')
+<style>
+    .liked {
+        background-color: #cc4b37;
+        border-color: #cc4b37;
+    }
+
+    .liked .fa,
+    .liked span {
+        color: #fefefe;
+    }
+
+    .liked:focus {
+        background-color: #cc4b37;
+    }
+
+    .liked:focus .fa,
+    .liked:focus span {
+        color: #fefefe;
+    }
+
+    .liked:hover {
+        background-color: #cc4b37;
+        border-color: #cc4b37;
+    }
+
+    .liked:hover .fa,
+    .liked:hover span {
+        color: #fefefe;
+    }
+
+</style>
+@endpush
+
 @forelse ($contents as $item)
 <article class="article article-style-c" id="report_{{ $item->id }}">
     <div class="article-details">
@@ -19,7 +53,8 @@
                             href="javascript:void(0)" data-toggle="modal" data-target="#updateModal"><i
                                 class="far fa-pen"></i> Perbarui</a>
                         @endif
-                        <a class="dropdown-item has-icon" href="#"><i class="far fa-thumbs-up"></i> Dukung</a>
+                        <a class="dropdown-item has-icon btn-support" data-id="{{ $item->id }}"><i
+                                class="far fa-thumbs-up"></i> Dukung</a>
                     </div>
                 </div>
                 @endauth
@@ -42,7 +77,7 @@
         <div class="article-title">
             <h2><a href="#" id="report_{{ $item->id }}_title">{{ $item->title }}</a></h2>
         </div>
-        <p id="report_{{ $item->id }}_content">{!! $item->content !!} </p>
+        <p id="report_{{ $item->id }}_content">{!! $item->content !!}</p>
 
         <div class="row text-center">
             <div class="col-md-3">
@@ -156,6 +191,46 @@
                     });
                 }
             });
+        });
+
+        $('.btn-support').on('click', function () {
+            var id_report = $(this).data('id');
+
+            if ($(this).hasClass('liked')) {
+                $.ajax({
+                    url: "{{ url('user/report/unsupport') }}" + '/' + id_report,
+                    type: "DELETE",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function (data) {
+                        $('.btn-support').removeClass('liked');
+                    },
+                    error: function (data) {
+                        swal('Laporan gagal dihapus dari dukungan.', {
+                            buttons: false,
+                            timer: 2000,
+                        });
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "{{ url('user/report/support') }}" + '/' + id_report,
+                    type: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function (data) {
+                        $('.btn-support').addClass('liked');
+                    },
+                    error: function (data) {
+                        swal('Laporan gagal didukung.', {
+                            buttons: false,
+                            timer: 2000,
+                        });
+                    }
+                });
+            }
         });
     });
 
