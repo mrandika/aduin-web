@@ -20,10 +20,6 @@
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Help Your Customer</h2>
-            <p class="section-lead">
-                Some customers need your help.
-            </p>
 
             <div class="row">
                 <div class="col-md-12">
@@ -40,7 +36,7 @@
                                 <div class="ticket-items" id="ticket-items">
                                     <div class="ticket-item active">
                                         <div class="ticket-title">
-                                            <h4>Dibuat Oleh</h4>
+                                            <h4>Pelapor</h4>
                                         </div>
                                         <div class="ticket-desc">
                                             <div>{{ $report->user->first_name }} {{$report->user->last_name}}</div>
@@ -48,7 +44,7 @@
                                     </div>
                                     <div class="ticket-item">
                                         <div class="ticket-title">
-                                            <h4>Ditujukan untuk</h4>
+                                            <h4>Ditujukan Ke</h4>
                                         </div>
                                         <div class="ticket-desc">
                                             @if ($report->unit)
@@ -81,15 +77,26 @@
                                                 <div class="font-weight-600">{{ $report->user->first_name }}
                                                     {{$report->user->last_name}}</div>
                                                 <div class="bullet"></div>
-                                                @if ($report->unit)
-                                                <div class="text-job">@ymddate($item->created_at), Diajukan ke
-                                                    {{ $report->unit->name }}</div>
-                                                @endif
+                                                @switch($report->status)
+                                                @case(0)
+                                                <td class="status_badge"><a href="#" class="badge badge-danger"
+                                                        id="report_{{ $report->id }}_status">Unhandled</a></td>
+                                                @break
+                                                @case(1)
+                                                <td class="status_badge"><a href="#" class="badge badge-warning"
+                                                        id="report_{{ $report->id }}_status">Belum Konfirmasi</a></td>
+                                                @break
+                                                @case(2)
+                                                <td class="status_badge"><a href="#" class="badge badge-info"
+                                                        id="report_{{ $report->id }}_status">Dalam Pengerjaan</a></td>
+                                                @break
+                                                @case(3)
+                                                <td class="status_badge"><a href="#" class="badge badge-info"
+                                                        id="report_{{ $report->id }}_status">Masalah Selesai</a></td>
+                                                @break
+                                                @default
 
-                                                @if ($report->instance)
-                                                <div class="text-job">@ymddate($item->created_at), Diajukan ke
-                                                    {{ $report->instance->name }}</div>
-                                                @endif
+                                                @endswitch
                                             </div>
                                         </div>
                                     </div>
@@ -98,27 +105,37 @@
                                         <p>{{ $report->content }}</p>
 
                                         <div class="ticket-divider">
-                                          
+
                                         </div>
                                         <div class="card">
-                                          <div class="card-header">
-                                              <h4>Komentar</h4>
-                                          </div>
-                                          @foreach ($report->comments as $comment)
-                                          <div class="card-body">
-                                              <div class="media">
-                                                  <img class="rounded-circle mr-3"
-                                                      src="{{ url('assets/img/avatar/avatar-1.png')}}"
-                                                      width="10%">
-                                                  <div class="media-body">
-                                                      <h6 class="mt-0">{{ $comment->user->first_name }}
-                                                          {{ $comment->user->last_name }}</h6>
-                                                      {!! $comment->content !!}
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          @endforeach
-                                      </div>
+                                            <div class="card-header">
+                                                <h4>Komentar</h4>
+                                            </div>
+                                            @foreach ($report->comments as $comment)
+                                            <div class="card-body">
+                                                <div class="media" id="">
+                                                    <img class="rounded-circle mr-3"
+                                                        src="{{ url('assets/img/avatar/avatar-1.png')}}" width="10%">
+                                                    <div class="media-body">
+                                                        <h6 class="mt-0">{{ $comment->user->first_name }}
+                                                            {{ $comment->user->last_name }}</h6>
+                                                        {!! $comment->content !!}
+                                                    </div>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false">
+                                                            Lainnya
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item" href="#">Edit</a>
+                                                            <a class="dropdown-item delete_comment" data-id="{{ $comment->id }}" href="javascript:void(0)">Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        </div>
 
                                         <div class="ticket-form">
                                             @auth
@@ -137,7 +154,7 @@
                                             @endauth
                                         </div>
                                         <br>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -168,14 +185,33 @@
                 url: "{{ url('user/report/comment/store') }}",
                 data: form,
                 success: function () {
-                    swal('Okehhhhhhhh', {
-                        buttons: false,
-                        timer: 2000,
-                    });
+                    window.location.reload(false);
                 },
                 error: function (data) {
                     console.log(data);
                     swal('Gagal! Laporan gagal dibuat.', {
+                        buttons: false,
+                        timer: 2000,
+                    });
+                }
+            });
+        });
+
+        $('.delete_comment').on('click', function () {
+            var id = $(this).data('id');
+
+            $.ajax({
+                type: "DELETE",
+                url: "{{ url('user/report/comment/delete') }}" + '/' + id,
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function () {
+                  $('#report_comment_'+id).remove()
+                },
+                error: function (data) {
+                    console.log(data);
+                    swal('Gagal! Komentar gagal dihapus.', {
                         buttons: false,
                         timer: 2000,
                     });
