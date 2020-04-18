@@ -98,8 +98,27 @@
                                         <p>{{ $report->content }}</p>
 
                                         <div class="ticket-divider">
-                                            
+                                          
                                         </div>
+                                        <div class="card">
+                                          <div class="card-header">
+                                              <h4>Komentar</h4>
+                                          </div>
+                                          @foreach ($report->comments as $comment)
+                                          <div class="card-body">
+                                              <div class="media">
+                                                  <img class="rounded-circle mr-3"
+                                                      src="{{ url('assets/img/avatar/avatar-1.png')}}"
+                                                      width="10%">
+                                                  <div class="media-body">
+                                                      <h6 class="mt-0">{{ $comment->user->first_name }}
+                                                          {{ $comment->user->last_name }}</h6>
+                                                      {!! $comment->content !!}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          @endforeach
+                                      </div>
 
                                         <div class="ticket-form">
                                             @auth
@@ -118,25 +137,7 @@
                                             @endauth
                                         </div>
                                         <br>
-                                        <div class="card">
-                                          <div class="card-header">
-                                              <h4>Komentar</h4>
-                                          </div>
-                                          @foreach ($report->comments as $comment)
-                                          <div class="card-body">
-                                              <div class="media">
-                                                  <img class="mr-3"
-                                                      src="{{ url('assets/img/avatar/avatar-1.png')}}"
-                                                      width="10%">
-                                                  <div class="media-body">
-                                                      <h6 class="mt-0">{{ $comment->user->first_name }}
-                                                          {{ $comment->user->last_name }}</h6>
-                                                      {!! $comment->content !!}
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          @endforeach
-                                      </div>
+                                        
                                     </div>
                                 </div>
                             </div>
