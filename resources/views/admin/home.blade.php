@@ -2,7 +2,7 @@
 @extends('layouts.admin.dashboardNav')
 
 @section('statisticActive')
-    active
+active
 @endsection
 
 @section('admin-content')
@@ -10,6 +10,12 @@
     <section class="section">
         <div class="section-header">
             <h1>Dashboard</h1>
+        </div>
+        <div class="summary mb-4">
+            <div class="summary-info">
+                <h4>{{ ($count['finished'] ?? 0 / $count['handled'] ?? 0)*100 }}%</h4>
+                <div class="text-muted">Total Ketuntasan</div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
