@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\FinishedReportExport;
 use App\Model\Master\Report\Report;
 
+use QrCode;
+
 class ReportController extends Controller
 {
     public function report_export()
@@ -20,5 +22,10 @@ class ReportController extends Controller
         return view('admin/export', [
             'reports' => Report::relation()->resolved()->get()
         ]);
+    }
+
+    public function generate_qr()
+    {
+        return view('admin/qrcode');
     }
 }
