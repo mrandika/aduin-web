@@ -90,16 +90,22 @@ class ReportController extends Controller
         $content = $request->post('content');
 
         $report = Report::find($id);
+
+        if (Auth::id() != $report->users_id) {
+            return response()->json([
+                'code' => 403,
+                'message' => 'Forbidden'
+            ], 403);
+        }
+
         $report->title = $title;
         $report->content = $content;
         $report->save();
 
-        if (Auth::id() != $report->users_id) {
-            return response()->json([
-                'code' => 200,
-                'message' => 'OK'
-            ]);
-        }
+        return response()->json([
+            'code' => 200,
+            'message' => 'OK'
+        ]);
     }
 
     /**
@@ -114,9 +120,14 @@ class ReportController extends Controller
 
         if (Auth::id() != $report->users_id) {
             return response()->json([
-                'code' => 200,
-                'message' => 'OK'
-            ]);
+                'code' => 403,
+                'message' => 'Forbidden'
+            ], 403);
         }
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'OK'
+        ]);
     }
 }

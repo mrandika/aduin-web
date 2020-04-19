@@ -86,15 +86,21 @@ class CommentController extends Controller
         $content = $request->post('content');
 
         $comment = ReportComment::find($id);
-        $comment->content = $content;
-        $comment->save();
 
         if (Auth::id() != $comment->users_id) {
             return response()->json([
-                'code' => 200,
-                'status' => 'OK'
-            ]);
+                'code' => 403,
+                'status' => 'Forbidden'
+            ], 403);
         }
+
+        $comment->content = $content;
+        $comment->save();
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'OK'
+        ]);
     }
 
     /**
@@ -110,9 +116,14 @@ class CommentController extends Controller
         
         if (Auth::id() != $comment->users_id) {
             return response()->json([
-                'code' => 200,
-                'status' => 'OK'
-            ]);
+                'code' => 403,
+                'status' => 'Forbidden'
+            ], 403);
         }
+        
+        return response()->json([
+            'code' => 200,
+            'status' => 'OK'
+        ]);
     }
 }
