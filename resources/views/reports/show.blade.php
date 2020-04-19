@@ -127,12 +127,14 @@
                                                     <li class="nav-item">
                                                         <a class="nav-link active" id="home-tab" data-toggle="tab"
                                                             href="#home" role="tab" aria-controls="home"
-                                                    aria-selected="true">Komentar <span class="badge badge-primary badge-pill">{{ $report->comments_count }}</span></a>
+                                                            aria-selected="true">Komentar <span
+                                                                class="badge badge-primary badge-pill">{{ $report->comments_count }}</span></a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" id="profile-tab" data-toggle="tab"
                                                             href="#profile" role="tab" aria-controls="profile"
-                                                            aria-selected="false">Komentar Petugas <span class="badge badge-primary badge-pill">{{ $report->actions_count }}</span></a>
+                                                            aria-selected="false">Komentar Petugas <span
+                                                                class="badge badge-primary badge-pill">{{ $report->actions_count }}</span></a>
                                                     </li>
                                                 </ul>
                                                 <div class="tab-content" id="myTabContent">
@@ -149,6 +151,7 @@
                                                                         {{ $comment->user->last_name }}</h6>
                                                                     {!! $comment->content !!}
                                                                 </div>
+                                                                @if (Auth::id() == $comment->user->id)
                                                                 <div class="dropdown">
                                                                     <button class="btn btn-secondary dropdown-toggle"
                                                                         type="button" id="dropdownMenuButton"
@@ -159,12 +162,16 @@
                                                                     <div class="dropdown-menu"
                                                                         aria-labelledby="dropdownMenuButton">
                                                                         <a class="dropdown-item has-icon update_comment"
-                                                                            data-id="{{ $comment->id }}" href="javascript:void(0)" data-toggle="modal" data-target="#updateModal">Perbarui</a>
+                                                                            data-id="{{ $comment->id }}"
+                                                                            href="javascript:void(0)"
+                                                                            data-toggle="modal"
+                                                                            data-target="#updateModal">Perbarui</a>
                                                                         <a class="dropdown-item delete_comment"
                                                                             data-id="{{ $comment->id }}"
                                                                             href="javascript:void(0)">Hapus</a>
                                                                     </div>
                                                                 </div>
+                                                                @endif
                                                             </div>
                                                         </div>
 
@@ -242,7 +249,8 @@
             </div>
             <div class="modal-footer bg-whitesmoke br">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close_modal">Close</button>
-                <button type="button" class="btn btn-primary" data-id="{{ $comment->id }}" id="update_button">Save changes</button>
+                <button type="button" class="btn btn-primary" data-id="{{ $comment->id }}" id="update_button">Save
+                    changes</button>
             </div>
         </div>
     </div>
