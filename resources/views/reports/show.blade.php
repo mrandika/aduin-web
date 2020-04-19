@@ -67,7 +67,8 @@
                                 <div class="ticket-content">
                                     <div class="ticket-header">
                                         <div class="ticket-sender-picture img-shadow">
-                                            <img src="{{ url('assets/img/avatar/avatar-1.png')}}" alt="image">
+                                            <img src="{{ $report->user->photo_url ?? 'assets/img/avatar/avatar-1.png' }}"
+                                                alt="image">
                                         </div>
                                         <div class="ticket-detail">
                                             <div class="ticket-title">
@@ -112,10 +113,11 @@
                                                 <h4>Komentar</h4>
                                             </div>
                                             @foreach ($report->comments as $comment)
-                                            <div class="card-body">
-                                                <div class="media" id="">
+                                            <div class="card-body" id="report_comment_{{ $comment->id }}">
+                                                <div class="media">
                                                     <img class="rounded-circle mr-3"
-                                                        src="{{ url('assets/img/avatar/avatar-1.png')}}" width="10%">
+                                                        src="{{ $comment->user->photo_url ?? 'assets/img/avatar/avatar-1.png' }}"
+                                                        width="10%">
                                                     <div class="media-body">
                                                         <h6 class="mt-0">{{ $comment->user->first_name }}
                                                             {{ $comment->user->last_name }}</h6>
@@ -129,7 +131,9 @@
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                             <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item delete_comment" data-id="{{ $comment->id }}" href="javascript:void(0)">Delete</a>
+                                                            <a class="dropdown-item delete_comment"
+                                                                data-id="{{ $comment->id }}"
+                                                                href="javascript:void(0)">Delete</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -189,7 +193,7 @@
                 },
                 error: function (data) {
                     console.log(data);
-                    swal('Gagal! Laporan gagal dibuat.', {
+                    swal('Komentar gagal dibuat.', {
                         buttons: false,
                         timer: 2000,
                     });
@@ -207,11 +211,12 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function () {
-                  $('#report_comment_'+id).remove()
+                    $('#report_comment_' + id).fadeOut("normal", function () {
+                        $('#report_comment_' + id).remove()
+                    });
                 },
                 error: function (data) {
-                    console.log(data);
-                    swal('Gagal! Komentar gagal dihapus.', {
+                    swal('Komentar gagal dihapus.', {
                         buttons: false,
                         timer: 2000,
                     });
