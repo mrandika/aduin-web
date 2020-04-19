@@ -16,6 +16,6 @@ class InstanceHandler extends Model
 
     public function instance()
     {
-        return $this->belongsTo(App\Model\Master\Instance\Instance::class, 'instances_id');
+        return $this->belongsTo(\App\Model\Master\Instance\Instance::class, 'instances_id');
     }
 }

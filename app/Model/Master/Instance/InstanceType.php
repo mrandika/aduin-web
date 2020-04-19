@@ -13,11 +13,11 @@ class InstanceType extends Model
 
     public function instances()
     {
-        return $this->hasMany(App\Model\Master\Instance\Instance::class, 'instance_types_id');
+        return $this->hasMany(\App\Model\Master\Instance\Instance::class, 'instance_types_id');
     }
 
     public function units()
     {
-        return $this->hasMany(App\Model\Master\Instance\InstanceUnit::class, 'instance_units_id');
+        return $this->hasMany(\App\Model\Master\Instance\InstanceUnit::class, 'instance_units_id');
     }
 }

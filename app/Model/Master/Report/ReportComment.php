@@ -16,7 +16,7 @@ class ReportComment extends Model
 
     public function report()
     {
-        return $this->belongsTo(App\Model\Master\Report\Report::class, 'reports_id');
+        return $this->belongsTo(\App\Model\Master\Report\Report::class, 'reports_id');
     }
 
     public function user()
