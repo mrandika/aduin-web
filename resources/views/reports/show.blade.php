@@ -158,10 +158,11 @@
                                                                     </button>
                                                                     <div class="dropdown-menu"
                                                                         aria-labelledby="dropdownMenuButton">
-                                                                        <a class="dropdown-item" href="#">Edit</a>
+                                                                        <a class="dropdown-item has-icon update_comment"
+                                                                            data-id="{{ $comment->id }}" href="javascript:void(0)" data-toggle="modal" data-target="#updateModal">Perbarui</a>
                                                                         <a class="dropdown-item delete_comment"
                                                                             data-id="{{ $comment->id }}"
-                                                                            href="javascript:void(0)">Delete</a>
+                                                                            href="javascript:void(0)">Hapus</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -222,6 +223,30 @@
         </div>
     </section>
 </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="updateModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Perbarui Laporan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Konten</label>
+                    <textarea class="summernote" name="content" id="content_update_form"></textarea>
+                </div>
+                <input type="hidden" name="id" id="comment_id">
+            </div>
+            <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close_modal">Close</button>
+                <button type="button" class="btn btn-primary" data-id="{{ $comment->id }}" id="update_button">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('js-lib')
@@ -270,6 +295,53 @@
                 },
                 error: function (data) {
                     swal('Komentar gagal dihapus.', {
+                        buttons: false,
+                        timer: 2000,
+                    });
+                }
+            });
+        });
+
+        $('.update_comment').on('click', function (e) {
+            e.preventDefault();
+
+            var id = $(this).data('id');
+
+            $('#comment_id').val(id);
+
+            var title = $('#report_comment_' + id + '_title').html();
+            var content = $('#report_comment_' + id + '_comment').html();
+
+            $('#content_update_form').summernote({
+                toolbar: []
+            });
+
+            $('#content_update_form').summernote('code', content);
+        });
+
+        $('#update_button').click(function (e) {
+            e.preventDefault();
+
+            var id = $('#comment_id').val();
+
+            var content = $('#content_update_form').val();
+
+            $.ajax({
+                type: "PATCH",
+                url: "{{ url('user/report/comment/update') }}" + '/' + id,
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "content": content,
+                },
+                success: function () {
+                    $('#report_comment_' + id + '_content').html(content);
+
+                    $('#close_modal').click();
+                    window.location.reload(false);
+                },
+                error: function (data) {
+                    console.log(data);
+                    swal('Gagal! Komentar gagal diperbarui.', {
                         buttons: false,
                         timer: 2000,
                     });

@@ -83,7 +83,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $content = $requst->post('content');
+        $content = $request->post('content');
 
         $comment = ReportComment::find($id);
         $comment->content = $content;

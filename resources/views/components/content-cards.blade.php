@@ -75,25 +75,47 @@
             </div>
         </div>
         <div class="article-title">
-            <h2><a href="{{ route('report.show', $item->id) }}" id="report_{{ $item->id }}_title">{{ $item->title }}</a></h2>
+            <h2><a href="{{ route('report.show', $item->id) }}" id="report_{{ $item->id }}_title">{{ $item->title }}</a>
+            </h2>
         </div>
         <div id="report_{{ $item->id }}_content">{!! $item->content !!}</div>
 
         <div class="row text-center">
-            <div class="col-md-3">
-                <div class="article-category"><a href="#">Status: {{ $item->status }}</a>
+            <div class="col-md-6">
+                <div class="article-category"><a href="#">Status:
+                        @switch($item->status)
+                        @case(0)
+                        <td class="status_badge"><a href="#" class="badge badge-danger"
+                                id="report_{{ $item->id }}_status">Unhandled</a></td>
+                        @break
+                        @case(1)
+                        <td class="status_badge"><a href="#" class="badge badge-warning"
+                                id="report_{{ $item->id }}_status">Belum Konfirmasi</a></td>
+                        @break
+                        @case(2)
+                        <td class="status_badge"><a href="#" class="badge badge-info"
+                                id="report_{{ $item->id }}_status">Dalam Pengerjaan</a></td>
+                        @break
+                        @case(3)
+                        <td class="status_badge"><a href="#" class="badge badge-info"
+                                id="report_{{ $item->id }}_status">Masalah Selesai</a></td>
+                        @break
+                        @default
+
+                        @endswitch
+                    </a>
                     <div class="bullet"></div> <a href="#">5 Days</a>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="article-category"><a href="#">{{ $item->actions_count }} Aksi</a>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="article-category"><a href="#">{{ $item->comments_count }} Komentar</a>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="article-category"><a href="#">{{ $item->supports_count }} Dukungan</a>
                 </div>
             </div>
