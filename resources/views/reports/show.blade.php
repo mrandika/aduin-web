@@ -110,35 +110,78 @@
                                         </div>
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4>Komentar</h4>
+                                                <h4>Tanggapan</h4>
                                             </div>
-                                            @foreach ($report->comments as $comment)
-                                            <div class="card-body" id="report_comment_{{ $comment->id }}">
-                                                <div class="media">
-                                                    <img class="rounded-circle mr-3"
-                                                        src="{{ $comment->user->photo_url ?? 'assets/img/avatar/avatar-1.png' }}"
-                                                        width="10%">
-                                                    <div class="media-body">
-                                                        <h6 class="mt-0">{{ $comment->user->first_name }}
-                                                            {{ $comment->user->last_name }}</h6>
-                                                        {!! $comment->content !!}
-                                                    </div>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                            id="dropdownMenuButton" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
-                                                            Lainnya
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item delete_comment"
-                                                                data-id="{{ $comment->id }}"
-                                                                href="javascript:void(0)">Delete</a>
+                                            <div class="card-body">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="home-tab" data-toggle="tab"
+                                                            href="#home" role="tab" aria-controls="home"
+                                                            aria-selected="true">Komentar</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="profile-tab" data-toggle="tab"
+                                                            href="#profile" role="tab" aria-controls="profile"
+                                                            aria-selected="false">Komentar Petugas</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                                        aria-labelledby="home-tab">
+                                                        @foreach ($report->comments as $comment)
+                                                        <div class="card-body" id="report_comment_{{ $comment->id }}">
+                                                            <div class="media">
+                                                                <img class="rounded-circle mr-3"
+                                                                    src="{{ $comment->user->photo_url ?? 'assets/img/avatar/avatar-1.png' }}"
+                                                                    width="10%">
+                                                                <div class="media-body">
+                                                                    <h6 class="mt-0">{{ $comment->user->first_name }}
+                                                                        {{ $comment->user->last_name }}</h6>
+                                                                    {!! $comment->content !!}
+                                                                </div>
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-secondary dropdown-toggle"
+                                                                        type="button" id="dropdownMenuButton"
+                                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                                        aria-expanded="false">
+                                                                        Lainnya
+                                                                    </button>
+                                                                    <div class="dropdown-menu"
+                                                                        aria-labelledby="dropdownMenuButton">
+                                                                        <a class="dropdown-item" href="#">Edit</a>
+                                                                        <a class="dropdown-item delete_comment"
+                                                                            data-id="{{ $comment->id }}"
+                                                                            href="javascript:void(0)">Delete</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
+
+                                                        <div class="ticket-divider"></div>
+                                                        @endforeach
+                                                    </div>
+
+                                                    <div class="tab-pane fade" id="profile" role="tabpanel"
+                                                        aria-labelledby="profile-tab">
+                                                        @foreach ($report->actions as $action)
+                                                        <div class="card-body" id="report_comment_{{ $action->id }}">
+                                                            <div class="media">
+                                                                <img class="rounded-circle mr-3"
+                                                                    src="{{ $action->user->photo_url ?? 'assets/img/avatar/avatar-1.png' }}"
+                                                                    width="10%">
+                                                                <div class="media-body">
+                                                                    <h6 class="mt-0">{{ $action->user->first_name }}
+                                                                        {{ $action->user->last_name }}</h6>
+                                                                    {!! $action->content !!}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="ticket-divider"></div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
-                                            @endforeach
                                         </div>
 
                                         <div class="ticket-form">
