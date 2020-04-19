@@ -36,6 +36,14 @@
                                 <div class="ticket-items" id="ticket-items">
                                     <div class="ticket-item active">
                                         <div class="ticket-title">
+                                            <h4>Kode Laporan</h4>
+                                        </div>
+                                        <div class="ticket-desc">
+                                            <div>RPT-{{ $report->id }}{{ $report->user->id }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="ticket-item">
+                                        <div class="ticket-title">
                                             <h4>Pelapor</h4>
                                         </div>
                                         <div class="ticket-desc">

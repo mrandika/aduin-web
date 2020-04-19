@@ -70,7 +70,7 @@ class ReportController extends Controller
 
     public function show($id)
     {
-        $report = Report::find($id);
+        $report = Report::relation()->id($id);
 
         return view('admin/report/show')->with([
             'report' => $report

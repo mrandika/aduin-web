@@ -78,6 +78,8 @@ active
                     <p id="status_update_form"></p>
                 </div>
 
+                <input type="hidden" name="id" id="report_id">
+
                 @if ($data == 'unhandled')
                 <form id="report_form">
                     @csrf
@@ -106,7 +108,7 @@ active
                 @endif
 
                 @if ($data == 'handled')
-                <a href="#" class="btn btn-primary">Buka Laporan</a>
+                <button href="javascript:void(0)" class="btn btn-primary" id="show_report_button">Buka Laporan</button>
                 @endif
             </div>
         </div>
@@ -145,6 +147,13 @@ active
                     });
                 }
             });
+        });
+
+        $('#show_report_button').on('click', function(e) {
+            e.preventDefault();
+
+            var id = $('#report_id').val();
+            window.location.href = "{{ url('admin/report/show') }}" + '/' + id;
         });
     });
 

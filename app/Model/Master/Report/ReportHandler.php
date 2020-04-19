@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ReportHandler extends Model
 {
     protected $table = 'report_handlers';
-    protected $fillable = ['reports_id', 'users_id'];
+    protected $fillable = ['reports_id', 'instance_handlers_id', 'instance_unit_handlers_id'];
 
     public function report()
     {
@@ -16,6 +16,6 @@ class ReportHandler extends Model
 
     public function handler()
     {
-        return $this->belongsTo(\App\Model\Master\Instance\InstanceHandler::class, 'instance_unit_handlers_id');
+        return $this->belongsTo(\App\Model\Master\Instance\InstanceHandler::class, 'instance_handlers_id');
     }
 }
