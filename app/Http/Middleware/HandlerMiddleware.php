@@ -22,6 +22,8 @@ class HandlerMiddleware
 
         if (Auth::check() && $role == 2) {
             return $next($request);
+        } else {
+            return abort(403);
         }
     }
 }
