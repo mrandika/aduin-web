@@ -95,7 +95,7 @@ active
                             </select>
                         </div>
                     </div>
-                    <input type="hidden" name="id" id="report_id">
+                    <input type="hidden" name="report_id" id="form_report_id">
                 </form>
                 @endif
 

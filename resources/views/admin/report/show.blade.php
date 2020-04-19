@@ -33,19 +33,19 @@
                                             @switch($report->status)
                                             @case(0)
                                             <td class="status_badge"><a href="#" class="badge badge-danger"
-                                                    id="report_{{ $report->id }}_status">Unhandled</a></td>
+                                                    id="report_{{ $report->id }}_status">Laporan Dinonaktifkan</a></td>
                                             @break
                                             @case(1)
                                             <td class="status_badge"><a href="#" class="badge badge-warning"
-                                                    id="report_{{ $report->id }}_status">Belum Konfirmasi</a></td>
+                                                    id="report_{{ $report->id }}_status">Menunggu Konfirmasi</a></td>
                                             @break
                                             @case(2)
                                             <td class="status_badge"><a href="#" class="badge badge-info"
-                                                    id="report_{{ $report->id }}_status">Dalam Pengerjaan</a></td>
+                                                    id="report_{{ $report->id }}_status">Menunggu Solusi</a></td>
                                             @break
                                             @case(3)
-                                            <td class="status_badge"><a href="#" class="badge badge-info"
-                                                    id="report_{{ $report->id }}_status">Masalah Selesai</a></td>
+                                            <td class="status_badge"><a href="#" class="badge badge-success"
+                                                    id="report_{{ $report->id }}_status">Laporan Selesai</a></td>
                                             @break
                                             @default
 
@@ -55,7 +55,7 @@
                                 </div>
 
                                 <div class="ticket-description">
-                                    <p>{{ $report->content }}</p>
+                                    <p>{!! $report->content !!}</p>
 
                                     <div class="ticket-divider">
 
@@ -115,11 +115,19 @@
                     <div class="card-body">
                         <ul class="list-group">
                             @foreach ($report->handlers as $item)
-                            <li class="list-group-item">{{ $item->handler->user->first_name }} {{ $item->handler->user->last_name }}</li>
+                            <li class="list-group-item">{{ $item->handler->user->first_name }}
+                                {{ $item->handler->user->last_name }}</li>
                             @endforeach
                         </ul>
                     </div>
                 </div>
+
+                @if ($report->status > 0 && $report->status < 3)
+                <a href="javascript:void(0)" class="btn btn-outline-primary btn-update btn-block mb-3"
+                    data-state="3">Perbarui Laporan menjadi Selesai</a>
+                <a href="javascript:void(0)" class="btn btn-outline-danger btn-update btn-block" data-state="0">Perbarui
+                    Laporan menjadi Nonaktif</a>
+                @endif
             </div>
         </div>
     </section>
@@ -142,6 +150,30 @@
                 error: function (data) {
                     console.log(data);
                     swal('Komentar gagal dibuat.', {
+                        buttons: false,
+                        timer: 2000,
+                    });
+                }
+            });
+        });
+
+        $('.btn-update').on('click', function () {
+            var state = $(this).data('state');
+            var id = "{{ $report->id }}";
+
+            $.ajax({
+                type: "PATCH",
+                url: "{{ url('admin/report/update') }}" + '/' + id,
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'type': 'update_status',
+                    'state': state
+                },
+                success: function () {
+                    window.location.reload(false);
+                },
+                error: function (data) {
+                    swal('Laporan gagal diperbarui.', {
                         buttons: false,
                         timer: 2000,
                     });

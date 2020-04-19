@@ -62,14 +62,12 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $instance_id = $request->post('instance_id');
-        $unit_id = $request->post('unit_id');
         $title = $request->post('title');
         $content = $request->post('content');
 
         $report = new Report;
         $report->users_id = Auth::id();
         $report->instances_id = $instance_id ?? null;
-        $report->instance_units_id = $unit_id ?? null;
         $report->title = $title;
         $report->content = $content;
         $report->save();

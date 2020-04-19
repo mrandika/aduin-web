@@ -13,7 +13,7 @@ active
         </div>
         <div class="summary mb-4">
             <div class="summary-info">
-                <h4>{{ ($count['finished'] ?? 0 / $count['handled'] ?? 0)*100 }}%</h4>
+                <h4>{{ round(($count['finished'] / $count['total'])*100) }}%</h4>
                 <div class="text-muted">Total Ketuntasan</div>
             </div>
         </div>

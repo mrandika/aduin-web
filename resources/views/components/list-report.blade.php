@@ -55,6 +55,7 @@
             var id = $(this).data('id');
 
             $('#report_id').val(id);
+            $('#form_report_id').val(id);
 
             var recepient = $('#report_' + id + '_recepient').val();
             var title = $('#report_' + id + '_title').text();

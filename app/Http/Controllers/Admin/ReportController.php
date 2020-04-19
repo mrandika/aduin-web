@@ -15,13 +15,11 @@ class ReportController extends Controller
 {
     public function _getReportCounts() 
     {
-        $report = Report::active();
-
         return [
-            'unhandled' => $report->unhandled()->count(),
-            'handled' => $report->handled()->count(),
-            'finished' => $report->resolved()->count(),
-            'total' => $report->count()
+            'unhandled' => Report::active()->unhandled()->count(),
+            'handled' => Report::active()->handled()->count(),
+            'finished' => Report::active()->resolved()->count(),
+            'total' => Report::active()->count()
         ];
     }
 
@@ -74,6 +72,23 @@ class ReportController extends Controller
 
         return view('admin/report/show')->with([
             'report' => $report
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $type = $request->post('type');
+        $state = $request->post('state');
+
+        if ($type == 'update_status') {
+            $report = Report::find($id);
+            $report->status = $state;
+            $report->save();
+        }
+
+        return response()->json([
+            'code' => 200,
+            'message' => 'OK'
         ]);
     }
 

@@ -50,6 +50,8 @@ Route::prefix('admin')->group(function () {
         Route::get('index/table', 'Admin\ReportController@report');
 
         Route::get('show/{id}', 'Admin\ReportController@show')->name('admin.report.show');
+        Route::patch('update/{id}', 'Admin\ReportController@update')->name('admin.report.update');
+
         Route::get('unhandled', 'Admin\ReportController@index_unhandled')->name('admin.report.unhandled');
         Route::get('handled', 'Admin\ReportController@index_handled')->name('admin.report.handled');
         Route::get('finished', 'Admin\ReportController@index_finished')->name('admin.report.resolved');

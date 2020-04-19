@@ -77,7 +77,7 @@
         <div class="article-title">
             <h2><a href="{{ route('report.show', $item->id) }}" id="report_{{ $item->id }}_title">{{ $item->title }}</a></h2>
         </div>
-        <p id="report_{{ $item->id }}_content">{!! $item->content !!}</p>
+        <div id="report_{{ $item->id }}_content">{!! $item->content !!}</div>
 
         <div class="row text-center">
             <div class="col-md-3">
@@ -151,7 +151,7 @@
             $('#report_id').val(id);
 
             var title = $('#report_' + id + '_title').html();
-            var content = "{!! $item->content !!}";
+            var content = $('#report_'+ id +'_content').html();
 
             $('#content_update_form').summernote({
                 toolbar: []

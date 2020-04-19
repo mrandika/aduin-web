@@ -29,12 +29,12 @@ class HomeController extends Controller
     {
         $reports = Report::active()->newest()->relation()->paginate(15);
         $instances = Instance::all();
-        $units = InstanceUnit::all();
+        // $units = InstanceUnit::all();
 
         return view('home')->with([
             'reports' => $reports,
             'instances' => $instances,
-            'units' => $units,
+            // 'units' => $units,
         ]);
     }
 }

@@ -14,15 +14,17 @@ class ReportHandlerController extends Controller
 {
     public function store(Request $request)
     {
+        $report_id = $request->post('report_id');
+
         foreach ($request->handlers as $handler_id) {
             $handler = new ReportHandler;
-            $handler->reports_id = $request->post('id');
+            $handler->reports_id = $report_id;
             $handler->instance_handlers_id = $handler_id;
             $handler->save();
         }
 
         $action = new ReportAction;
-        $action->reports_id = $request->post('id');
+        $action->reports_id = $report_id;
         $action->users_id = Auth::id();
 
         $operator_name = Auth::user()->first_name.' '.Auth::user()->last_name;

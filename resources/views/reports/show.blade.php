@@ -89,19 +89,21 @@
                                                 @switch($report->status)
                                                 @case(0)
                                                 <td class="status_badge"><a href="#" class="badge badge-danger"
-                                                        id="report_{{ $report->id }}_status">Unhandled</a></td>
+                                                        id="report_{{ $report->id }}_status">Laporan Dinonaktifkan</a>
+                                                </td>
                                                 @break
                                                 @case(1)
                                                 <td class="status_badge"><a href="#" class="badge badge-warning"
-                                                        id="report_{{ $report->id }}_status">Belum Konfirmasi</a></td>
+                                                        id="report_{{ $report->id }}_status">Menunggu Konfirmasi</a>
+                                                </td>
                                                 @break
                                                 @case(2)
                                                 <td class="status_badge"><a href="#" class="badge badge-info"
-                                                        id="report_{{ $report->id }}_status">Dalam Pengerjaan</a></td>
+                                                        id="report_{{ $report->id }}_status">Menunggu Solusi</a></td>
                                                 @break
                                                 @case(3)
-                                                <td class="status_badge"><a href="#" class="badge badge-info"
-                                                        id="report_{{ $report->id }}_status">Masalah Selesai</a></td>
+                                                <td class="status_badge"><a href="#" class="badge badge-success"
+                                                        id="report_{{ $report->id }}_status">Laporan Selesai</a></td>
                                                 @break
                                                 @default
 
@@ -111,7 +113,7 @@
                                     </div>
 
                                     <div class="ticket-description">
-                                        <p>{{ $report->content }}</p>
+                                        <p>{!! $report->content !!}</p>
 
                                         <div class="ticket-divider">
 
@@ -125,12 +127,12 @@
                                                     <li class="nav-item">
                                                         <a class="nav-link active" id="home-tab" data-toggle="tab"
                                                             href="#home" role="tab" aria-controls="home"
-                                                            aria-selected="true">Komentar</a>
+                                                    aria-selected="true">Komentar <span class="badge badge-primary badge-pill">{{ $report->comments_count }}</span></a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" id="profile-tab" data-toggle="tab"
                                                             href="#profile" role="tab" aria-controls="profile"
-                                                            aria-selected="false">Komentar Petugas</a>
+                                                            aria-selected="false">Komentar Petugas <span class="badge badge-primary badge-pill">{{ $report->actions_count }}</span></a>
                                                     </li>
                                                 </ul>
                                                 <div class="tab-content" id="myTabContent">

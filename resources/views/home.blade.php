@@ -43,8 +43,8 @@
                             <div class="form-group" id="select_unit">
                                 <label class="form-label">Pilih Unit</label>
                                 <div class="selectgroup w-100">
-                                    <select class="select2 w-100" name="unit_id">
-                                        @foreach ($units as $item)
+                                    <select class="select2 w-100" name="instance_id">
+                                        @foreach ($instances as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>

@@ -16,17 +16,17 @@ class Report extends Model
 
     public function scopeUnhandled($query) 
     {
-        return $query->where('status', '=', 1);
+        return $query->where('status', 1);
     }
 
     public function scopeHandled($query) 
     {
-        return $query->where('status', '=', 2);
+        return $query->where('status', 2);
     }
 
     public function scopeResolved($query)
     {
-        return $query->where('status', '=', 3);
+        return $query->where('status', 3);
     }
 
     public function scopeNewest($query)
