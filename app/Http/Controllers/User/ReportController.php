@@ -94,10 +94,12 @@ class ReportController extends Controller
         $report->content = $content;
         $report->save();
 
-        return response()->json([
-            'code' => 200,
-            'message' => 'OK'
-        ]);
+        if (Auth::id() != $report->users_id) {
+            return response()->json([
+                'code' => 200,
+                'message' => 'OK'
+            ]);
+        }
     }
 
     /**
@@ -110,9 +112,11 @@ class ReportController extends Controller
     {
         $report = Report::find($id)->delete();
 
-        return response()->json([
-            'code' => 200,
-            'message' => 'OK'
-        ]);
+        if (Auth::id() != $report->users_id) {
+            return response()->json([
+                'code' => 200,
+                'message' => 'OK'
+            ]);
+        }
     }
 }

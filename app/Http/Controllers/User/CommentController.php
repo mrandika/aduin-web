@@ -89,10 +89,12 @@ class CommentController extends Controller
         $comment->content = $content;
         $comment->save();
 
-        return response()->json([
-            'code' => 200,
-            'status' => 'OK'
-        ]);
+        if (Auth::id() != $comment->users_id) {
+            return response()->json([
+                'code' => 200,
+                'status' => 'OK'
+            ]);
+        }
     }
 
     /**
@@ -106,10 +108,11 @@ class CommentController extends Controller
         $comment = ReportComment::find($id);
         $comment->delete();
         
-
-        return response()->json([
-            'code' => 200,
-            'status' => 'OK'
-        ]);
+        if (Auth::id() != $comment->users_id) {
+            return response()->json([
+                'code' => 200,
+                'status' => 'OK'
+            ]);
+        }
     }
 }
