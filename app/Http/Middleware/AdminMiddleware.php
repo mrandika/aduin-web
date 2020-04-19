@@ -22,6 +22,8 @@ class AdminMiddleware
 
         if (Auth::check() && $role == 3) {
             return $next($request);
+        } else {
+            return abort(403);
         }
     }
 }

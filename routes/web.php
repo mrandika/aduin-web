@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::prefix('user')->group(function () {
+Route::group(['prefix' => 'user',  'middleware' => 'people'], function() {
     Route::prefix('report')->group(function () {
         Route::post('store', 'User\ReportController@store');
         Route::get('show/{id}', 'User\ReportController@show')->name('report.show');
@@ -33,7 +33,7 @@ Route::prefix('user')->group(function () {
     });
 });
 
-Route::prefix('admin')->group(function () {
+Route::group(['prefix' => 'admin',  'middleware' => 'admin'], function() {
     Route::get('', 'Admin\ReportController@index')->name('admin.home.statistic');
     Route::get('code/qr', 'Admin\ReportController@generate_qr');
 
