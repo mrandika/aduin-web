@@ -81,8 +81,8 @@
         <div id="report_{{ $item->id }}_content">{!! $item->content !!}</div>
 
         <div class="row text-center">
-            <div class="col-md-6">
-                <div class="article-category"><a href="#">Status:
+            <div class="col-md-4">
+                <div class="article-category"><a href="#">
                         @switch($item->status)
                         @case(0)
                         <td class="status_badge"><a href="#" class="badge badge-danger"

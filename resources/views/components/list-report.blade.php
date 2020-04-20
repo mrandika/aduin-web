@@ -71,3 +71,30 @@
 
 </script>
 @endpush
+
+@push('handler-js')
+<script>
+    $(document).ready(function () {
+
+        $('.update_report').on('click', function (e) {
+            e.preventDefault();
+
+            var id = $(this).data('id');
+
+            $('#report_id').val(id);
+            $('#form_report_id').val(id);
+
+            var recepient = $('#report_' + id + '_recepient').val();
+            var title = $('#report_' + id + '_title').text();
+            var content = $('#report_' + id + '_content').val();
+            var status_badge = $('.status_badge').html();
+
+            $('#recepient_update_form').text(recepient);
+            $('#title_update_form').text(title);
+            $('#content_update_form').html(content);
+            $('#status_update_form').html(status_badge);
+        });
+    });
+
+</script>
+@endpush

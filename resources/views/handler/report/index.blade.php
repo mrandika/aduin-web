@@ -123,32 +123,6 @@ active
 @push('handler-js')
 <script>
     $(document).ready(function () {
-        $('#store_handler_button').on('click', function (e) {
-            e.preventDefault();
-
-            var form = $('#report_form').serialize();
-            var id = $('#report_id').val();
-
-            $.ajax({
-                type: "POST",
-                url: "{{ url('admin/report/handler/store') }}",
-                data: form,
-                success: function () {
-                    $('#close_modal').click();
-                    $("#report_" + id).fadeOut("normal", function () {
-                        $("#report_" + id).remove();
-                    });
-                },
-                error: function (data) {
-                    console.log(data);
-                    swal('Gagal! Laporan gagal diperbarui.', {
-                        buttons: false,
-                        timer: 2000,
-                    });
-                }
-            });
-        });
-
         $('#show_report_button').on('click', function(e) {
             e.preventDefault();
 

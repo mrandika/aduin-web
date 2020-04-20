@@ -31,13 +31,10 @@ class ReportController extends Controller
         $handlers = InstanceHandler::with('user')->get();
         $reports = Report::active()->handled()->get();
 
-        $user_handler = $handlers->select('id')->where('users_id', Auth::id())->get();
-        $report_handler = ReportHandler::whereIn('id', $user_handler)->with('report')->get();
-
         return view('handler/report/index')->with([
             'data' => 'handled',
-            'handlers' => $reports,
-            'report_handler' => $report_handler
+            'handlers' => $handlers,
+            'reports' => $reports
         ]);
     }
 
