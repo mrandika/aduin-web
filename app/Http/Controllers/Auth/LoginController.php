@@ -61,9 +61,14 @@ class LoginController extends Controller
                     return redirect('/');
                 }
 
-                if ($role == 2 && $role == 3) {
-                    // Petugas dan admin instansi
-                    return redirect('/dashboard');
+                if ($role == 2) {
+                    // Petugas instansi
+                    return redirect('/handler');
+                }
+
+                if ($role == 3) {
+                    // Admin instansi
+                    return redirect('/admin');
                 }
             } else {
                 return redirect('/login')->withInput();
@@ -71,5 +76,7 @@ class LoginController extends Controller
         } else {
             return redirect('/login')->withInput();
         }
+
+        return redirect('/login')->withInput();
     }
 }
