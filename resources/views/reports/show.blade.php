@@ -249,7 +249,7 @@
             </div>
             <div class="modal-footer bg-whitesmoke br">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close_modal">Close</button>
-                <button type="button" class="btn btn-primary" data-id="{{ $comment->id }}" id="update_button">Save
+                <button type="button" class="btn btn-primary" id="update_button">Save
                     changes</button>
             </div>
         </div>
