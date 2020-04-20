@@ -65,7 +65,11 @@ class LoginController extends Controller
                     // Petugas dan admin instansi
                     return redirect('/dashboard');
                 }
+            } else {
+                return redirect('/login')->withInput();
             }
+        } else {
+            return redirect('/login')->withInput();
         }
     }
 }
