@@ -58,6 +58,13 @@ Route::group(['prefix' => 'admin',  'middleware' => 'admin'], function() {
     });
 });
 
+Route::group(['prefix' => 'handler',  'middleware' => 'handler'], function() {
+    
+    Route::get('', 'Handler\ReportController@index')->name('handler.home.statistic');
+    Route::get('handled', 'Handler\ReportController@index_handled')->name('handler.report.handled');
+    Route::get('finished', 'Handler\ReportController@index_finished')->name('handler.report.resolved');
+});
+
 Auth::routes();
 Route::post('/aduin/login', 'Auth\LoginController@aduin_login')->name('aduin.login');
 Route::post('/register', 'Auth\RegisterController@aduin_register')->name('aduin.register');
