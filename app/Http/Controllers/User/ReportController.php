@@ -28,6 +28,14 @@ class ReportController extends Controller
         return response()->json($support);
     }
 
+    public function search(Request $request)
+    {
+        $keyword = $request->post('keyword');
+        $reports = Report::active()->newest()->relation()->searchQuery($keyword)->get();
+
+        dd($reports);
+    }
+
     /**
      * Store the reports to Database
      *

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('user/report/show/{id}', 'User\ReportController@show')->name('report.show');
+Route::post('user/report/search', 'User\ReportController@search')->name('report.search');
 
 Route::group(['prefix' => 'user',  'middleware' => 'people'], function() {
     Route::prefix('report')->group(function () {
@@ -39,6 +40,7 @@ Route::group(['prefix' => 'admin',  'middleware' => 'admin'], function() {
     Route::get('code/qr', 'Admin\ReportController@generate_qr');
 
     Route::prefix('report')->group(function () {
+        Route::post('search', 'Admin\ReportController@search')->name('admin.report.search');
         Route::prefix('handler')->group(function () {
             Route::post('store', 'Admin\ReportHandlerController@store');
         });
@@ -63,6 +65,7 @@ Route::group(['prefix' => 'handler',  'middleware' => 'handler'], function() {
     Route::get('', 'Handler\ReportController@index')->name('handler.home.statistic');
 
     Route::prefix('report')->group(function () {
+        Route::post('search', 'Handler\ReportController@search')->name('handler.report.search');
         Route::get('show/{id}', 'Handler\ReportController@show')->name('handler.report.show');
 
         Route::prefix('action')->group(function () {
