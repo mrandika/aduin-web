@@ -73,4 +73,13 @@ class ReportController extends Controller
             'reports' => $reports
         ]);
     }
+
+    public function show($id)
+    {
+        $report = Report::relation()->id($id);
+
+        return view('handler/report/show')->with([
+            'report' => $report
+        ]);
+    }
 }
