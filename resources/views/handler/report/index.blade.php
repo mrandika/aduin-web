@@ -105,9 +105,7 @@ active
                 {{-- <button type="button" class="btn btn-danger" id="delete_button">Hapus Laporan</button> --}}
                 @if ($data == 'unhandled')
                 <button type="button" class="btn btn-primary" id="store_handler_button">Save changes</button>
-                @endif
-
-                @if ($data == 'handled')
+                @else
                 <button href="javascript:void(0)" class="btn btn-primary" id="show_report_button">Buka Laporan</button>
                 @endif
             </div>
@@ -123,11 +121,11 @@ active
 @push('handler-js')
 <script>
     $(document).ready(function () {
-        $('#show_report_button').on('click', function(e) {
+        $('#show_report_button').on('click', function (e) {
             e.preventDefault();
 
             var id = $('#report_id').val();
-            window.location.href = "{{ url('admin/report/show') }}" + '/' + id;
+            window.location.href = "{{ url('handler/report/show') }}" + '/' + id;
         });
     });
 

@@ -15,17 +15,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('user/report/show/{id}', 'User\ReportController@show')->name('report.show');
+
 Route::group(['prefix' => 'user',  'middleware' => 'people'], function() {
     Route::prefix('report')->group(function () {
         Route::post('store', 'User\ReportController@store');
-        Route::get('show/{id}', 'User\ReportController@show')->name('report.show');
         Route::patch('update/{id}', 'User\ReportController@update');
         Route::delete('delete/{id}', 'User\ReportController@destroy');
 
         Route::prefix('comment')->group(function () {
-            Route::post('store', 'User\CommentController@store');
-            Route::patch('update/{id}', 'User\CommentController@update');
-            Route::delete('delete/{id}', 'User\CommentController@destroy');
+            Route::post('store', 'User\ReportCommentController@store');
+            Route::patch('update/{id}', 'User\ReportCommentController@update');
+            Route::delete('delete/{id}', 'User\ReportCommentController@destroy');
         });
         
         Route::post('support/{id}', 'User\ReportController@support_report');
@@ -59,11 +60,37 @@ Route::group(['prefix' => 'admin',  'middleware' => 'admin'], function() {
 });
 
 Route::group(['prefix' => 'handler',  'middleware' => 'handler'], function() {
-    
     Route::get('', 'Handler\ReportController@index')->name('handler.home.statistic');
+
+    Route::prefix('report')->group(function () {
+        Route::get('show/{id}', 'Handler\ReportController@show')->name('handler.report.show');
+
+        Route::prefix('action')->group(function () {
+            Route::post('store', 'Handler\ReportActionController@store');
+        });
+    });
+
     Route::get('handled', 'Handler\ReportController@index_handled')->name('handler.report.handled');
     Route::get('finished', 'Handler\ReportController@index_finished')->name('handler.report.resolved');
 });
+
+if (env('APP_DEBUG')) {
+    Route::get('debug/key', function() {
+        dd([
+            'ENCRYPTION_TOGGLE' => env('ADUIN_CRYPT_TOGGLE'),
+            'ENCRYPTION_METHOD' => env('ADUIN_CRYPT_METHOD'),
+            'MASTER_KEY' => env('ADUIN_MASTER_KEY'),
+            'PUBLIC_KEY_PROPERTIES' => [
+                'is_set' => env('ADUIN_PUBLIC_KEY') != null || env('ADUIN_PUBLIC_KEY') != '',
+                'value' => env('ADUIN_PUBLIC_KEY')
+            ],
+            'PRIVATE_KEY_PROPERTIES' => [
+                'is_set' => env('ADUIN_PRIVATE_KEY') != null || env('ADUIN_PRIVATE_KEY') != '',
+                'value' => env('ADUIN_PRIVATE_KEY')
+            ]
+        ]);
+    });
+}
 
 Auth::routes();
 Route::post('/aduin/login', 'Auth\LoginController@aduin_login')->name('aduin.login');

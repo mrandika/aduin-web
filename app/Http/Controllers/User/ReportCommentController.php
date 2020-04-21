@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Model\Master\Report\ReportComment;
 use Auth;
 
-class CommentController extends Controller
+class ReportCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
