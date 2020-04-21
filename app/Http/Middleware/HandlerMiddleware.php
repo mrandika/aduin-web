@@ -17,10 +17,14 @@ class HandlerMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
         // Check role
         $role = Auth::user()->role;
 
-        if (Auth::check() && $role == 2) {
+        if ($role == 2) {
             return $next($request);
         } else {
             return abort(403);

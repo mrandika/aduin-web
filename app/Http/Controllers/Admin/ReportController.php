@@ -44,24 +44,20 @@ class ReportController extends Controller
 
     public function index_handled()
     {
-        $handlers = InstanceHandler::with('user')->get();
         $reports = Report::active()->handled()->get();
 
         return view('admin/report/index')->with([
             'data' => 'handled',
-            'handlers' => $handlers,
             'reports' => $reports
         ]);
     }
 
     public function index_finished()
     {
-        $handlers = InstanceHandler::with('user')->get();
         $reports = Report::active()->resolved()->get();
 
         return view('admin/report/index')->with([
             'data' => 'finished',
-            'handlers' => $handlers,
             'reports' => $reports
         ]);
     }

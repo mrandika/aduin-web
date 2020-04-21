@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Model\Master\Report\Report;
 use App\Model\Master\Instance\InstanceHandler;
 
+use Auth;
+
 class ReportController extends Controller
 {
     public function _getReportCounts() 
@@ -28,24 +30,46 @@ class ReportController extends Controller
 
     public function index_handled()
     {
-        $handlers = InstanceHandler::with('user')->get();
-        $reports = Report::active()->handled()->get();
+        $reports = Report::active()->handled()->with('handlers')->get();
+        $user = InstanceHandler::select('id')->where('users_id', Auth::id())->first()->id;
+
+        $reports_by_user = [];
+
+        foreach ($reports as $report) {
+            foreach ($report->handlers as $handler) {
+                if ($handler->instance_handlers_id == $user) {
+                    $reports_by_user[] = $report->id;
+                }
+            }
+        }
+
+        $reports = Report::whereIn('id', $reports_by_user)->get();
 
         return view('handler/report/index')->with([
             'data' => 'handled',
-            'handlers' => $handlers,
             'reports' => $reports
         ]);
     }
 
     public function index_finished()
     {
-        $handlers = InstanceHandler::with('user')->get();
-        $reports = Report::active()->resolved()->get();
+        $reports = Report::active()->resolved()->with('handlers')->get();
+        $user = InstanceHandler::select('id')->where('users_id', Auth::id())->first()->id;
+
+        $reports_by_user = [];
+
+        foreach ($reports as $report) {
+            foreach ($report->handlers as $handler) {
+                if ($handler->instance_handlers_id == $user) {
+                    $reports_by_user[] = $report->id;
+                }
+            }
+        }
+
+        $reports = Report::whereIn('id', $reports_by_user)->get();
 
         return view('handler/report/index')->with([
             'data' => 'finished',
-            'handlers' => $handlers,
             'reports' => $reports
         ]);
     }
