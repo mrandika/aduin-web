@@ -16,19 +16,23 @@
                     <tr id="report_{{ $item->id }}">
 
                         <input type="hidden" id="report_{{ $item->id }}_content" value="{{ $item->content }}"></input>
-                        <input type="hidden" id="report_{{ $item->id }}_recepient" value="{{ $item->unit->name ?? $item->instance->name }}"></input>
+                        <input type="hidden" id="report_{{ $item->id }}_recepient"
+                            value="{{ $item->unit->name ?? $item->instance->name }}"></input>
 
                         <th scope="row">RPT-{{ $item->id }}{{ $item->user->id }}</th>
                         <td id="report_{{ $item->id }}_title">{{ $item->title }}</td>
                         @switch($state)
                         @case('unhandled')
-                        <td class="status_badge"><a href="#" class="badge badge-danger" id="report_{{ $item->id }}_status">Unhandled</a></td>
+                        <td class="status_badge"><a href="#" class="badge badge-danger"
+                                id="report_{{ $item->id }}_status">Unhandled</a></td>
                         @break
                         @case('handled')
-                        <td class="status_badge"><a href="#" class="badge badge-warning" id="report_{{ $item->id }}_status">Handled</a></td>
+                        <td class="status_badge"><a href="#" class="badge badge-warning"
+                                id="report_{{ $item->id }}_status">Handled</a></td>
                         @break
                         @case('finished')
-                        <td class="status_badge"><a href="#" class="badge badge-info" id="report_{{ $item->id }}_status">Resolved</a></td>
+                        <td class="status_badge"><a href="#" class="badge badge-info"
+                                id="report_{{ $item->id }}_status">Resolved</a></td>
                         @break
                         @default
 
