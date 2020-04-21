@@ -10,16 +10,6 @@ use Auth;
 
 class ReportController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('people')->except('update_seen_count');
-    }
-
     public function support_report($id)
     {
         $support = new ReportSupport;

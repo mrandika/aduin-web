@@ -15,10 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('user/report/show/{id}', 'User\ReportController@show')->name('report.show');
+
 Route::group(['prefix' => 'user',  'middleware' => 'people'], function() {
     Route::prefix('report')->group(function () {
         Route::post('store', 'User\ReportController@store');
-        Route::get('show/{id}', 'User\ReportController@show')->name('report.show');
         Route::patch('update/{id}', 'User\ReportController@update');
         Route::delete('delete/{id}', 'User\ReportController@destroy');
 

@@ -70,7 +70,7 @@ active
 
                 <div class="form-group">
                     <label>Konten</label>
-                    <p id="content_update_form"></p>
+                    <div id="content_update_form"></div>
                 </div>
 
                 <div class="form-group">
