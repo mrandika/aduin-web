@@ -23,9 +23,9 @@ Route::group(['prefix' => 'user',  'middleware' => 'people'], function() {
         Route::delete('delete/{id}', 'User\ReportController@destroy');
 
         Route::prefix('comment')->group(function () {
-            Route::post('store', 'User\CommentController@store');
-            Route::patch('update/{id}', 'User\CommentController@update');
-            Route::delete('delete/{id}', 'User\CommentController@destroy');
+            Route::post('store', 'User\ReportCommentController@store');
+            Route::patch('update/{id}', 'User\ReportCommentController@update');
+            Route::delete('delete/{id}', 'User\ReportCommentController@destroy');
         });
         
         Route::post('support/{id}', 'User\ReportController@support_report');
