@@ -15,7 +15,7 @@ class VerifyAduinKey
      */
     public function handle($request, Closure $next)
     {
-        if (env('ADUIN_CRYPT_TOOGLE') == false) {
+        if (env('ADUIN_CRYPT_TOOGLE') && env('ADUIN_CRYPT_TOOGLE') == false) {
             return $next($request);
         }
 

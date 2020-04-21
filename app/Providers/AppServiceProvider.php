@@ -30,6 +30,12 @@ class AppServiceProvider extends ServiceProvider
             return \Carbon\Carbon::parse($date)->format('d-m-Y');
         });
 
+        Blade::directive('ymdtimedate', function ($expression) {
+            list($date) = $expression;
+
+            return \Carbon\Carbon::parse($date)->format('d-m-Y').' pada '.\Carbon\Carbon::parse($date)->format('H:i');
+        });
+
         Blade::directive('reportstatus', function ($expression) {
             list($status) = $expression;
 
