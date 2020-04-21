@@ -57,6 +57,8 @@
                                 <div class="ticket-description">
                                     <p>{!! $report->content !!}</p>
 
+                                    <div id="report_map" style="width: 100%; height:400px;"></div>
+
                                     <div class="ticket-divider">
 
                                     </div>
@@ -122,21 +124,54 @@
                     </div>
                 </div>
 
-                @if ($report->status > 0 && $report->status < 3)
-                <a href="javascript:void(0)" class="btn btn-outline-primary btn-update btn-block mb-3"
-                    data-state="3">Perbarui Laporan menjadi Selesai</a>
-                <a href="javascript:void(0)" class="btn btn-outline-danger btn-update btn-block" data-state="0">Perbarui
-                    Laporan menjadi Nonaktif</a>
-                @endif
+                @if ($report->status > 0 && $report->status < 3) <a href="javascript:void(0)"
+                    class="btn btn-outline-primary btn-update btn-block mb-3" data-state="3">Perbarui Laporan menjadi
+                    Selesai</a>
+                    <a href="javascript:void(0)" class="btn btn-outline-danger btn-update btn-block"
+                        data-state="0">Perbarui
+                        Laporan menjadi Nonaktif</a>
+                    @endif
             </div>
         </div>
     </section>
 </div>
 @endsection
 
+@push('admin-js-lib')
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=initMap" async
+    defer></script>
+@endpush
+
 @push('admin-js')
 <script>
+    var map;
+
+    function initMap() {
+        var latitude = Number($('#lat').val());
+        var longitude = Number($('#lng').val());
+
+        map = new google.maps.Map(document.getElementById('report_map'), {
+            center: {
+                lat: latitude,
+                lng: longitude
+            },
+            zoom: 15
+        });
+
+        var marker = new google.maps.Marker({
+            position: {
+                lat: latitude,
+                lng: longitude
+            },
+            map: map
+        });
+    }
+
+</script>
+
+<script>
     $(document).ready(function () {
+
         $('#send_comment').on('click', function () {
             var form = $('#comment_form').serialize();
 

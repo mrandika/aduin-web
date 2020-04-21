@@ -149,7 +149,7 @@ active
             });
         });
 
-        $('#show_report_button').on('click', function(e) {
+        $('#show_report_button').on('click', function (e) {
             e.preventDefault();
 
             var id = $('#report_id').val();

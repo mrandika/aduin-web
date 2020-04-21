@@ -38,7 +38,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Konten</label>
-                                <textarea class="summernote" name="content"></textarea>
+                                <textarea class="summernote" name="content">
+                                    <div id="location">
+                                        <input type="hidden" id="lat">
+                                        <input type="hidden" id="lng">
+                                    </div>
+                                </textarea>
                             </div>
                             <div class="form-group" id="select_unit">
                                 <label class="form-label">Pilih Unit</label>
@@ -118,6 +123,15 @@
 @push('js')
 <script>
     $(document).ready(function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                $("#lat").val(position.coords.latitude);
+                $('#lng').val(position.coords.longitude);
+            });
+        } else {
+            console.log("Browser doesn't support geolocation!");
+        }
+
         $('#send_report').on('click', function () {
             var form = $('#report_form').serialize();
 
