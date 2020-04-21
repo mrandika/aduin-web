@@ -28,10 +28,6 @@
                             <h4>Tickets</h4>
                         </div>
                         <div class="card-body">
-                            <a href="#" class="btn btn-primary btn-icon icon-left btn-lg btn-block mb-4 d-md-none"
-                                data-toggle-slide="#ticket-items">
-                                <i class="fas fa-list"></i> All Tickets
-                            </a>
                             <div class="tickets">
                                 <div class="ticket-items" id="ticket-items">
                                     <div class="ticket-item active">
@@ -71,6 +67,36 @@
                                             <div>@ymddate($item->created_at)</div>
                                         </div>
                                     </div>
+
+                                    <div class="ticket-item">
+                                        <div class="ticket-title">
+                                            <h4>Status Laporan</h4>
+                                        </div>
+                                        <div class="ticket-desc">
+                                            @switch($report->status)
+                                            @case(0)
+                                            <td class="status_badge"><a href="#" class="badge badge-danger"
+                                                    id="report_{{ $report->id }}_status">Laporan Dinonaktifkan</a>
+                                            </td>
+                                            @break
+                                            @case(1)
+                                            <td class="status_badge"><a href="#" class="badge badge-warning"
+                                                    id="report_{{ $report->id }}_status">Menunggu Konfirmasi</a>
+                                            </td>
+                                            @break
+                                            @case(2)
+                                            <td class="status_badge"><a href="#" class="badge badge-info"
+                                                    id="report_{{ $report->id }}_status">Menunggu Solusi</a></td>
+                                            @break
+                                            @case(3)
+                                            <td class="status_badge"><a href="#" class="badge badge-success"
+                                                    id="report_{{ $report->id }}_status">Laporan Selesai</a></td>
+                                            @break
+                                            @default
+
+                                            @endswitch
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="ticket-content">
                                     <div class="ticket-header">
@@ -85,29 +111,6 @@
                                             <div class="ticket-info">
                                                 <div class="font-weight-600">{{ $report->user->first_name }}
                                                     {{$report->user->last_name}}</div>
-                                                <div class="bullet"></div>
-                                                @switch($report->status)
-                                                @case(0)
-                                                <td class="status_badge"><a href="#" class="badge badge-danger"
-                                                        id="report_{{ $report->id }}_status">Laporan Dinonaktifkan</a>
-                                                </td>
-                                                @break
-                                                @case(1)
-                                                <td class="status_badge"><a href="#" class="badge badge-warning"
-                                                        id="report_{{ $report->id }}_status">Menunggu Konfirmasi</a>
-                                                </td>
-                                                @break
-                                                @case(2)
-                                                <td class="status_badge"><a href="#" class="badge badge-info"
-                                                        id="report_{{ $report->id }}_status">Menunggu Solusi</a></td>
-                                                @break
-                                                @case(3)
-                                                <td class="status_badge"><a href="#" class="badge badge-success"
-                                                        id="report_{{ $report->id }}_status">Laporan Selesai</a></td>
-                                                @break
-                                                @default
-
-                                                @endswitch
                                             </div>
                                         </div>
                                     </div>
@@ -190,6 +193,8 @@
                                                                 <div class="media-body">
                                                                     <h6 class="mt-0">{{ $action->user->first_name }}
                                                                         {{ $action->user->last_name }}</h6>
+                                                                        <small>@ymdtimedate($action->created_at)</small>
+                                                                        <br>
                                                                     {!! $action->content !!}
                                                                 </div>
                                                             </div>
