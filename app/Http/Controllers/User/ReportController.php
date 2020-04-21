@@ -38,7 +38,7 @@ class ReportController extends Controller
     {
         $report = Report::relation()->id($id);
 
-        return view('reports/show')->with([
+        return view('report/show')->with([
             'report' => $report
         ]);
     }
@@ -106,7 +106,7 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        $report = Report::find($id)->delete();
+        $report = Report::find($id);
 
         if (Auth::id() != $report->users_id) {
             return response()->json([
@@ -114,6 +114,8 @@ class ReportController extends Controller
                 'message' => 'Forbidden'
             ], 403);
         }
+
+        $report->delete();
 
         return response()->json([
             'code' => 200,
