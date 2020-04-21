@@ -62,6 +62,14 @@ class ReportController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $code = $request->post('code');
+        $reports = Report::relation()->searchCode($code);
+
+        dd($reports);
+    }
+
     public function show($id)
     {
         $report = Report::relation()->id($id);

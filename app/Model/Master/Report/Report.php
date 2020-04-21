@@ -44,6 +44,20 @@ class Report extends Model
         return $query->where('id', $id)->first();
     }
 
+    public function scopeSearchQuery($query, $keyword)
+    {
+        return $query->where('title', 'like', "%".$keyword."%");
+    }
+
+    public function scopeSearchCode($query, $code)
+    {
+        $full_code = explode('-', $code);
+        $id_report = $full_code[1];
+        $id_user = $full_code[2];
+
+        return $query->where(['id' => $id_report, 'users_id' => $id_user])->first();
+    }
+
     public function actions()
     {
         return $this->hasMany(\App\Model\Master\Report\ReportAction::class, 'reports_id');

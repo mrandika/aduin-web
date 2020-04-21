@@ -37,7 +37,7 @@
                                             <h4>Kode Laporan</h4>
                                         </div>
                                         <div class="ticket-desc">
-                                            <div>RPT-{{ $report->id }}{{ $report->user->id }}</div>
+                                            <div>RPT-{{ $report->id }}-{{ $report->user->id }}</div>
                                         </div>
                                     </div>
                                     <div class="ticket-item">

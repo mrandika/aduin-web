@@ -19,7 +19,7 @@
                         <input type="hidden" id="report_{{ $item->id }}_recepient"
                             value="{{ $item->unit->name ?? $item->instance->name }}"></input>
 
-                        <th scope="row">RPT-{{ $item->id }}{{ $item->user->id }}</th>
+                        <th scope="row">RPT-{{ $item->id }}-{{ $item->user->id }}</th>
                         <td id="report_{{ $item->id }}_title">{{ $item->title }}</td>
                         @switch($state)
                         @case('unhandled')
