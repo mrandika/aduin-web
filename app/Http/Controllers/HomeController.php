@@ -29,11 +29,13 @@ class HomeController extends Controller
     {
         $reports = Report::active()->newest()->relation()->paginate(15);
         $instances = Instance::all();
+        $newreportfinish = Report::resolved()->relation()->take(5)->orderBy('updated_at', 'desc')->get();
         // $units = InstanceUnit::all();
 
         return view('home')->with([
             'reports' => $reports,
             'instances' => $instances,
+            'finishnew' => $newreportfinish
             // 'units' => $units,
         ]);
     }

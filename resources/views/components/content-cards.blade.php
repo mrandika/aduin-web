@@ -75,12 +75,11 @@
             </div>
         </div>
         <div class="article-title">
-            <h2><a href="{{ route('report.show', $item->id) }}" id="report_{{ $item->id }}_title">{{ $item->title }}</a>
-            </h2>
+            <h2><a href="{{ route('report.show', $item->id) }}" id="report_{{ $item->id }}_title">{{ $item->title }}</a></h2>
         </div>
         <div id="report_{{ $item->id }}_content">{!! $item->content !!}</div>
 
-        <div class="row text-center">
+        <div class="row text-center mt-2">
             <div class="col-md-4">
                 <div class="article-category"><a href="#">
                         @switch($item->status)
@@ -97,7 +96,7 @@
                                 id="report_{{ $item->id }}_status">Dalam Pengerjaan</a></td>
                         @break
                         @case(3)
-                        <td class="status_badge"><a href="#" class="badge badge-info"
+                        <td class="status_badge"><a href="#" class="badge badge-success"
                                 id="report_{{ $item->id }}_status">Masalah Selesai</a></td>
                         @break
                         @default

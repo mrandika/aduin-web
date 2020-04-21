@@ -12,7 +12,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Tickets</h4>
+                        <h4>Laporan</h4>
                     </div>
                     <div class="card-body">
                         <div class="tickets">
@@ -29,27 +29,6 @@
                                         <div class="ticket-info">
                                             <div class="font-weight-600">{{ $report->user->first_name }}
                                                 {{$report->user->last_name}}</div>
-                                            <div class="bullet"></div>
-                                            @switch($report->status)
-                                            @case(0)
-                                            <td class="status_badge"><a href="#" class="badge badge-danger"
-                                                    id="report_{{ $report->id }}_status">Laporan Dinonaktifkan</a></td>
-                                            @break
-                                            @case(1)
-                                            <td class="status_badge"><a href="#" class="badge badge-warning"
-                                                    id="report_{{ $report->id }}_status">Menunggu Konfirmasi</a></td>
-                                            @break
-                                            @case(2)
-                                            <td class="status_badge"><a href="#" class="badge badge-info"
-                                                    id="report_{{ $report->id }}_status">Menunggu Solusi</a></td>
-                                            @break
-                                            @case(3)
-                                            <td class="status_badge"><a href="#" class="badge badge-success"
-                                                    id="report_{{ $report->id }}_status">Laporan Selesai</a></td>
-                                            @break
-                                            @default
-
-                                            @endswitch
                                         </div>
                                     </div>
                                 </div>
@@ -117,10 +96,34 @@
                     <div class="card-body">
                         <ul class="list-group">
                             @foreach ($report->handlers as $item)
-                            <li class="list-group-item">{{ $item->handler->user->first_name }}
+                            <li class="list-group-item"><img class="rounded-circle mr-3"
+                                src="{{ $item->user->photo_url ?? 'assets/img/avatar/avatar-1.png' }}"
+                                width="10%">{{ $item->handler->user->first_name }}
                                 {{ $item->handler->user->last_name }}</li>
                             @endforeach
                         </ul>
+                        <hr>
+                        <p>Status Laporan</p>
+                        @switch($report->status)
+                        @case(0)
+                        <td class="status_badge"><a href="#" class="badge badge-danger"
+                                id="report_{{ $report->id }}_status">Laporan Dinonaktifkan</a></td>
+                        @break
+                        @case(1)
+                        <td class="status_badge"><a href="#" class="badge badge-warning"
+                                id="report_{{ $report->id }}_status">Menunggu Konfirmasi</a></td>
+                        @break
+                        @case(2)
+                        <td class="status_badge"><a href="#" class="badge badge-info"
+                                id="report_{{ $report->id }}_status">Menunggu Solusi</a></td>
+                        @break
+                        @case(3)
+                        <td class="status_badge"><a href="#" class="badge badge-success"
+                                id="report_{{ $report->id }}_status">Laporan Selesai</a></td>
+                        @break
+                        @default
+
+                        @endswitch
                     </div>
                 </div>
 
@@ -138,8 +141,8 @@
 @endsection
 
 @push('admin-js-lib')
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=initMap" async
-    defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=initMap" async defer>
+</script>
 @endpush
 
 @push('admin-js')
