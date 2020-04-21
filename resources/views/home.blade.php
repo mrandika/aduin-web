@@ -12,17 +12,13 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Top Navigation</h1>
+            <h1>Beranda Laporan</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="#">Layout</a></div>
-                <div class="breadcrumb-item">Top Navigation</div>
+                <div class="breadcrumb-item active"><a href="/">Home</a></div>
             </div>
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">This is Example Page</h2>
-            <p class="section-lead">This page is just an example for you to create your own page.</p>
 
             <div class="row">
                 <div class="col-md-8">
@@ -66,8 +62,19 @@
                 </div>
 
                 <div class="col-md-4">
-                    <x-card header="ABC" footer="DEF">
-                        <p>WALL_MAGAZINE</p>
+                    <x-card header="Laporan Selesai Terbaru" footer="">
+                        @forelse ($finishnew as $item)
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <img class="rounded-circle mr-3"
+                                src="{{ $item->user->photo_url ?? 'assets/img/avatar/avatar-1.png' }}"
+                                width="10%"><a href="{{ route('report.show', $item->id) }}">{{ $item->title }}</a></li>
+                        </ul>
+                        @empty
+                        <ul class="list-group">
+                            <li class="list-group-item">Belum Ada Laporan Selesai</li>
+                        </ul>
+                        @endforelse
                     </x-card>
                 </div>
             </div>

@@ -12,10 +12,12 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Tickets</h1>
+            <a href="/" class="btn btn-icon"><i
+                class="fas fa-arrow-left"></i></a>
+            <h1>Laporan</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item">Tickets</div>
+                <div class="breadcrumb-item"><a href="/">Home</a></div>
+                <div class="breadcrumb-item active"><a href="{{ route('report.show', $report->id) }}">Detail</a></div>
             </div>
         </div>
 
@@ -25,7 +27,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Tickets</h4>
+                            <h4>Detail Laporan</h4>
                         </div>
                         <div class="card-body">
                             <div class="tickets">
