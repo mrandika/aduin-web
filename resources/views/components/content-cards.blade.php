@@ -60,7 +60,7 @@
                 @endauth
 
                 <div class="user-detail-name">
-                    <a href="#">{{ $item->user->first_name }} {{ $item->user->last_name }}</a>
+                    <p>{{ $item->user->first_name }} {{ $item->user->last_name }}</p>
                 </div>
 
                 @if ($item->unit)
@@ -84,34 +84,33 @@
                 <div class="article-category"><a href="#">
                         @switch($item->status)
                         @case(0)
-                        <td class="status_badge"><a href="#" class="badge badge-danger"
+                        <td class="status_badge"><a href="#" class="badge badge-danger text-light"
                                 id="report_{{ $item->id }}_status">Unhandled</a></td>
                         @break
                         @case(1)
-                        <td class="status_badge"><a href="#" class="badge badge-warning"
+                        <td class="status_badge"><a href="#" class="badge badge-warning text-light"
                                 id="report_{{ $item->id }}_status">Belum Konfirmasi</a></td>
                         @break
                         @case(2)
-                        <td class="status_badge"><a href="#" class="badge badge-info"
+                        <td class="status_badge"><a href="#" class="badge badge-info text-light"
                                 id="report_{{ $item->id }}_status">Dalam Pengerjaan</a></td>
                         @break
                         @case(3)
-                        <td class="status_badge"><a href="#" class="badge badge-success"
+                        <td class="status_badge"><a href="#" class="badge badge-success text-light"
                                 id="report_{{ $item->id }}_status">Masalah Selesai</a></td>
                         @break
                         @default
 
                         @endswitch
                     </a>
-                    <div class="bullet"></div> <a href="#">5 Days</a>
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="article-category"><a href="#">{{ $item->actions_count }} Aksi</a>
+                <div class="article-category"><a href="{{ route('report.show', $item->id) }}">{{ $item->actions_count }} Aksi</a>
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="article-category"><a href="#">{{ $item->comments_count }} Komentar</a>
+                <div class="article-category"><a href="{{ route('report.show', $item->id) }}">{{ $item->comments_count }} Komentar</a>
                 </div>
             </div>
             <div class="col-md-2">

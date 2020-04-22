@@ -110,6 +110,10 @@ active
                 @if ($data == 'handled')
                 <button href="javascript:void(0)" class="btn btn-primary" id="show_report_button">Buka Laporan</button>
                 @endif
+
+                @if ($data == 'finished')
+                <button href="javascript:void(0)" class="btn btn-primary" id="show_report_button">Buka Laporan</button>
+                @endif
             </div>
         </div>
     </div>
