@@ -80,6 +80,8 @@
             </div>
 
         </div>
+
+        @if ($mode == 'index')
         <div class="float-right">
             <nav>
                 <ul class="pagination">
@@ -87,6 +89,7 @@
                 </ul>
             </nav>
         </div>
+        @endif
     </section>
 </div>
 

@@ -33,6 +33,17 @@ class ReportController extends Controller
         $keyword = $request->post('keyword');
         $reports = Report::active()->newest()->relation()->searchQuery($keyword)->get();
 
+        $instances = Instance::all();
+        $newreportfinish = Report::resolved()->relation()->take(5)->orderBy('updated_at', 'desc')->get();
+
+        return view('home')->with([
+            'mode' => 'search',
+            'reports' => $reports,
+            'instances' => $instances,
+            'finishnew' => $newreportfinish
+            // 'units' => $units,
+        ]);
+
         dd($reports);
     }
 

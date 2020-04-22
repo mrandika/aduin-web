@@ -33,6 +33,7 @@ class HomeController extends Controller
         // $units = InstanceUnit::all();
 
         return view('home')->with([
+            'mode' => 'index',
             'reports' => $reports,
             'instances' => $instances,
             'finishnew' => $newreportfinish
