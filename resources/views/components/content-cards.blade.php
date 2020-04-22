@@ -129,8 +129,6 @@
     <p class="lead">
         Sorry we can't find any data, to get rid of this message, make at least 1 entry.
     </p>
-    <a href="#" class="btn btn-primary mt-4">Create new One</a>
-    <a href="#" class="mt-4 bb">Need Help?</a>
 </div>
 @endforelse
 
