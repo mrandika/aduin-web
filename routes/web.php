@@ -77,24 +77,6 @@ Route::group(['prefix' => 'handler',  'middleware' => 'handler'], function() {
     Route::get('finished', 'Handler\ReportController@index_finished')->name('handler.report.resolved');
 });
 
-if (env('APP_DEBUG')) {
-    Route::get('debug/key', function() {
-        dd([
-            'ENCRYPTION_TOGGLE' => env('ADUIN_CRYPT_TOGGLE'),
-            'ENCRYPTION_METHOD' => env('ADUIN_CRYPT_METHOD'),
-            'MASTER_KEY' => env('ADUIN_MASTER_KEY'),
-            'PUBLIC_KEY_PROPERTIES' => [
-                'is_set' => env('ADUIN_PUBLIC_KEY') != null || env('ADUIN_PUBLIC_KEY') != '',
-                'value' => env('ADUIN_PUBLIC_KEY')
-            ],
-            'PRIVATE_KEY_PROPERTIES' => [
-                'is_set' => env('ADUIN_PRIVATE_KEY') != null || env('ADUIN_PRIVATE_KEY') != '',
-                'value' => env('ADUIN_PRIVATE_KEY')
-            ]
-        ]);
-    });
-}
-
 Auth::routes();
 Route::post('/aduin/login', 'Auth\LoginController@aduin_login')->name('aduin.login');
 Route::post('/register', 'Auth\RegisterController@aduin_register')->name('aduin.register');
