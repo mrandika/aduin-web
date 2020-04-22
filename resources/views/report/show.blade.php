@@ -154,6 +154,8 @@
                                                                 <div class="media-body">
                                                                     <h6 class="mt-0">{{ $comment->user->first_name }}
                                                                         {{ $comment->user->last_name }}</h6>
+                                                                        <small>@ymdtimedate($action->created_at)</small>
+                                                                        <br>
                                                                     {!! $comment->content !!}
                                                                 </div>
                                                                 @if (Auth::id() == $comment->user->id)

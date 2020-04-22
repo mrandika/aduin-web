@@ -77,9 +77,9 @@ class ReportController extends Controller
     public function search(Request $request)
     {
         $code = $request->post('code');
-        $reports = Report::relation()->searchCode($code);
+        $report = Report::relation()->searchCode($code);
 
-        dd($reports);
+        return redirect(action('Handler\ReportController@show', $report->id));
     }
 
     public function show($id)

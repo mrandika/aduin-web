@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Master\Report\Report;
 use App\Model\Master\Report\ReportSupport;
+use App\Model\Master\Instance\Instance;
 use Auth;
 
 class ReportController extends Controller
@@ -31,7 +32,19 @@ class ReportController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->post('keyword');
-        $reports = Report::active()->newest()->relation()->searchQuery($keyword)->get();
+        $search = Report::active()->newest()->relation()->searchQuery($keyword)->get();
+
+        $reports = Report::active()->newest()->relation()->paginate(15);
+        $instances = Instance::all();
+        $newreportfinish = Report::resolved()->relation()->take(5)->orderBy('updated_at', 'desc')->get();
+
+        return view('home')->with([
+            'search' => $search,
+            'reports' => $reports,
+            'instances' => $instances,
+            'finishnew' => $newreportfinish
+            // 'units' => $units,
+        ]);
 
         dd($reports);
     }
