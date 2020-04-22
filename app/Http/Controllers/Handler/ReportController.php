@@ -30,7 +30,7 @@ class ReportController extends Controller
 
     public function index_handled()
     {
-        $reports = Report::active()->handled()->with('handlers')->get();
+        $reports = Report::active()->handled()->with('handlers')->newest()->get();
         $user = InstanceHandler::select('id')->where('users_id', Auth::id())->first()->id;
 
         $reports_by_user = [];
@@ -53,7 +53,7 @@ class ReportController extends Controller
 
     public function index_finished()
     {
-        $reports = Report::active()->resolved()->with('handlers')->get();
+        $reports = Report::active()->resolved()->with('handlers')->newest()->get();
         $user = InstanceHandler::select('id')->where('users_id', Auth::id())->first()->id;
 
         $reports_by_user = [];

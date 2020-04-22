@@ -33,7 +33,7 @@ class ReportController extends Controller
     public function index_unhandled()
     {
         $handlers = InstanceHandler::with('user')->get();
-        $reports = Report::active()->unhandled()->get();
+        $reports = Report::active()->unhandled()->newest()->get();
 
         return view('admin/report/index')->with([
             'data' => 'unhandled',
@@ -44,7 +44,7 @@ class ReportController extends Controller
 
     public function index_handled()
     {
-        $reports = Report::active()->handled()->get();
+        $reports = Report::active()->handled()->newest()->get();
 
         return view('admin/report/index')->with([
             'data' => 'handled',
@@ -54,7 +54,7 @@ class ReportController extends Controller
 
     public function index_finished()
     {
-        $reports = Report::active()->resolved()->get();
+        $reports = Report::active()->resolved()->newest()->get();
 
         return view('admin/report/index')->with([
             'data' => 'finished',
