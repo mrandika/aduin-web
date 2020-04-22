@@ -70,6 +70,9 @@
             $('#title_update_form').text(title);
             $('#content_update_form').html(content);
             $('#status_update_form').html(status_badge);
+
+            $('img, iframe').css("width", '100%');
+            $('img, iframe').css("height", '100%');
         });
     });
 
@@ -97,6 +100,9 @@
             $('#title_update_form').text(title);
             $('#content_update_form').html(content);
             $('#status_update_form').html(status_badge);
+
+            $('img, iframe').css("width", '100%');
+            $('img, iframe').css("height", '100%');
         });
     });
 

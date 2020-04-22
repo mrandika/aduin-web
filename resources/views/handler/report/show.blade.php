@@ -59,7 +59,7 @@
                                 </div>
 
                                 <div class="ticket-description">
-                                    <p>{!! $report->content !!}</p>
+                                    <div id="content">{!! $report->content !!}</div>
 
                                     <div class="ticket-divider">
 
@@ -138,6 +138,10 @@
 @push('handler-js')
 <script>
     $(document).ready(function () {
+
+        $('#content').find('img, iframe').css("width", '100%');
+        $('#content').find('img, iframe').css("height", '100%');
+
         $('#send_comment').on('click', function () {
             var form = $('#comment_form').serialize();
 

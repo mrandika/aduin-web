@@ -34,7 +34,7 @@
                                 </div>
 
                                 <div class="ticket-description">
-                                    <p>{!! $report->content !!}</p>
+                                    <div id="content">{!! $report->content !!}</div>
 
                                     <div id="report_map" style="width: 100%; height:400px;"></div>
 
@@ -174,6 +174,9 @@
 
 <script>
     $(document).ready(function () {
+
+        $('#content').find('img, iframe').css("width", '100%');
+        $('#content').find('img, iframe').css("height", '100%');
 
         $('#send_comment').on('click', function () {
             var form = $('#comment_form').serialize();
