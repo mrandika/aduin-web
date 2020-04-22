@@ -99,6 +99,15 @@
                                             @endswitch
                                         </div>
                                     </div>
+
+                                    <div class="ticket-item">
+                                        <div class="ticket-title">
+                                            <h4>QR Laporan</h4>
+                                        </div>
+                                        <div class="ticket-desc">
+                                            {!! QrCode::size(200)->generate(Request::url()); !!}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="ticket-content">
                                     <div class="ticket-header">
