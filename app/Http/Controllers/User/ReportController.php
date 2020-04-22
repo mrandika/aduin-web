@@ -46,6 +46,17 @@ class ReportController extends Controller
             // 'units' => $units,
         ]);
 
+        $instances = Instance::all();
+        $newreportfinish = Report::resolved()->relation()->take(5)->orderBy('updated_at', 'desc')->get();
+
+        return view('home')->with([
+            'mode' => 'search',
+            'reports' => $reports,
+            'instances' => $instances,
+            'finishnew' => $newreportfinish
+            // 'units' => $units,
+        ]);
+
         dd($reports);
     }
 
