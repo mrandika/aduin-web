@@ -56,8 +56,6 @@ class ReportController extends Controller
             'finishnew' => $newreportfinish
             // 'units' => $units,
         ]);
-
-        dd($reports);
     }
 
     /**

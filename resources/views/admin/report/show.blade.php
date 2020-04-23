@@ -54,6 +54,8 @@
                                                 <div class="media-body">
                                                     <h6 class="mt-0">{{ $action->user->first_name }}
                                                         {{ $action->user->last_name }}</h6>
+                                                    <small>@ymdtimedate($action->created_at)</small>
+                                                    <br>
                                                     {!! $action->content !!}
                                                 </div>
                                             </div>
@@ -97,8 +99,8 @@
                         <ul class="list-group">
                             @foreach ($report->handlers as $item)
                             <li class="list-group-item"><img class="rounded-circle mr-3"
-                                src="{{ $item->user->photo_url ?? 'assets/img/avatar/avatar-1.png' }}"
-                                width="10%">{{ $item->handler->user->first_name }}
+                                    src="{{ $item->user->photo_url ?? 'assets/img/avatar/avatar-1.png' }}"
+                                    width="10%">{{ $item->handler->user->first_name }}
                                 {{ $item->handler->user->last_name }}</li>
                             @endforeach
                         </ul>

@@ -77,6 +77,8 @@
                                                 <div class="media-body">
                                                     <h6 class="mt-0">{{ $action->user->first_name }}
                                                         {{ $action->user->last_name }}</h6>
+                                                    <small>@ymdtimedate($action->created_at)</small>
+                                                    <br>
                                                     {!! $action->content !!}
                                                 </div>
                                             </div>
