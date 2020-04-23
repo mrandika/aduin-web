@@ -17,11 +17,17 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
         // Check role
         $role = Auth::user()->role;
 
-        if (Auth::check() && $role == 3) {
+        if ($role == 3) {
             return $next($request);
+        } else {
+            return abort(403);
         }
     }
 }

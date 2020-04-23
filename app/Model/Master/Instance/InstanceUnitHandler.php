@@ -11,11 +11,11 @@ class InstanceUnitHandler extends Model
 
     public function user()
     {
-        return $this->belongsTo(App\User::class, 'users_id');
+        return $this->belongsTo(\App\User::class, 'users_id');
     }
 
     public function unit()
     {
-        return $this->belongsTo(App\Model\Master\Instance\InstanceUnit::class, 'instance_units_id');
+        return $this->belongsTo(\App\Model\Master\Instance\InstanceUnit::class, 'instance_units_id');
     }
 }

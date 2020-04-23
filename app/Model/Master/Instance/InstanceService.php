@@ -13,11 +13,11 @@ class InstanceService extends Model
 
     public function instances()
     {
-        return $this->hasMany(App\Model\Master\Instance\Instance::class, 'instance_services_id');
+        return $this->hasMany(\App\Model\Master\Instance\Instance::class, 'instance_services_id');
     }
 
     public function units()
     {
-        return $this->hasMany(App\Model\Master\Instance\InstanceUnit::class, 'instance_services_id');
+        return $this->hasMany(\App\Model\Master\Instance\InstanceUnit::class, 'instance_services_id');
     }
 }

@@ -12,8 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            InstancesSeeder::class,
-            InstanceUnitsSeeder::class
+            InstancesSeeder::class
         ]);
     }
 }

@@ -11,16 +11,16 @@ class ReportBin extends Model
 
     public function user()
     {
-        return $this->belongsTo(App\User::class, 'users_id');
+        return $this->belongsTo(\App\User::class, 'users_id');
     }
 
     public function instance()
     {
-        return $this->belongsTo(App\Model\Master\Instance\Instance::class, 'instance_id');
+        return $this->belongsTo(\App\Model\Master\Instance\Instance::class, 'instance_id');
     }
 
     public function unit()
     {
-        return $this->belongsTo(App\Model\Master\Instance\InstanceUnit::class, 'instance_units_id');
+        return $this->belongsTo(\App\Model\Master\Instance\InstanceUnit::class, 'instance_units_id');
     }
 }

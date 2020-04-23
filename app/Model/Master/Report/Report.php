@@ -14,9 +14,19 @@ class Report extends Model
         return $query->where('status', '>', 0);
     }
 
+    public function scopeUnhandled($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    public function scopeHandled($query)
+    {
+        return $query->where('status', 2);
+    }
+
     public function scopeResolved($query)
     {
-        return $query->where('status', '=', 4);
+        return $query->where('status', 3);
     }
 
     public function scopeNewest($query)
@@ -24,14 +34,33 @@ class Report extends Model
         return $query->orderBy('created_at', 'desc');
     }
 
-    public function scopeRelation($query) 
+    public function scopeRelation($query)
     {
         return $query->with(['user', 'instance', 'unit'])->withCount(['comments', 'actions', 'supports']);
     }
 
-    public function scopeId($query, $id) 
+    public function scopeId($query, $id)
     {
         return $query->where('id', $id)->first();
+    }
+
+    public function scopeSearchQuery($query, $keyword)
+    {
+        return $query->where('title', 'like', "%" . $keyword . "%");
+    }
+
+    public function scopeSearchCode($query, $code)
+    {
+        $full_code = explode('-', $code);
+
+        try {
+            $id_report = $full_code[1];
+            $id_user = $full_code[2];
+
+            return $query->where(['id' => $id_report, 'users_id' => $id_user])->first();
+        } catch (\ErrorException $err) {
+            return abort(404);
+        }
     }
 
     public function actions()

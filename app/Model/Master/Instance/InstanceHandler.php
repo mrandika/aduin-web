@@ -11,11 +11,11 @@ class InstanceHandler extends Model
 
     public function user()
     {
-        return $this->belongsTo(App\User::class, 'users_id');
+        return $this->belongsTo(\App\User::class, 'users_id');
     }
 
     public function instance()
     {
-        return $this->belongsTo(App\Model\Master\Instance\Instance::class, 'instances_id');
+        return $this->belongsTo(\App\Model\Master\Instance\Instance::class, 'instances_id');
     }
 }

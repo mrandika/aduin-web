@@ -1,3 +1,37 @@
+@push('css')
+<style>
+    .liked {
+        background-color: #cc4b37;
+        border-color: #cc4b37;
+    }
+
+    .liked .fa,
+    .liked span {
+        color: #fefefe;
+    }
+
+    .liked:focus {
+        background-color: #cc4b37;
+    }
+
+    .liked:focus .fa,
+    .liked:focus span {
+        color: #fefefe;
+    }
+
+    .liked:hover {
+        background-color: #cc4b37;
+        border-color: #cc4b37;
+    }
+
+    .liked:hover .fa,
+    .liked:hover span {
+        color: #fefefe;
+    }
+
+</style>
+@endpush
+
 @forelse ($contents as $item)
 <article class="article article-style-c" id="report_{{ $item->id }}">
     <div class="article-details">
@@ -12,20 +46,21 @@
                         Lainnya
                     </button>
                     <div class="dropdown-menu" x-placement="bottom-start">
-                        {{-- @if (Auth::id() == $item->user->id) --}}
+                        @if (Auth::id() == $item->user->id)
                         <a class="dropdown-item has-icon delete_report" data-id="{{ $item->id }}"
                             href="javascript:void(0)"><i class="far fa-trash"></i> Hapus</a>
                         <a class="dropdown-item has-icon update_report" data-id="{{ $item->id }}"
                             href="javascript:void(0)" data-toggle="modal" data-target="#updateModal"><i
                                 class="far fa-pen"></i> Perbarui</a>
-                        {{-- @endif --}}
-                        <a class="dropdown-item has-icon" href="#"><i class="far fa-thumbs-up"></i> Dukung</a>
+                        @endif
+                        <a class="dropdown-item has-icon btn-support" data-id="{{ $item->id }}"><i
+                                class="far fa-thumbs-up"></i> Dukung</a>
                     </div>
                 </div>
                 @endauth
 
                 <div class="user-detail-name">
-                    <a href="#">{{ $item->user->first_name }} {{ $item->user->last_name }}</a>
+                    <p>{{ $item->user->first_name }} {{ $item->user->last_name }}</p>
                 </div>
 
                 @if ($item->unit)
@@ -40,25 +75,45 @@
             </div>
         </div>
         <div class="article-title">
-            <h2><a href="#" id="report_{{ $item->id }}_title">{{ $item->title }}</a></h2>
+            <h2><a href="{{ route('report.show', $item->id) }}" id="report_{{ $item->id }}_title">{{ $item->title }}</a></h2>
         </div>
-        <p id="report_{{ $item->id }}_content">{!! $item->content !!} </p>
+        <div id="report_{{ $item->id }}_content">{!! $item->content !!}</div>
 
-        <div class="row text-center">
-            <div class="col-md-3">
-                <div class="article-category"><a href="#">Status: {{ $item->status }}</a>
-                    <div class="bullet"></div> <a href="#">5 Days</a>
+        <div class="row text-center mt-2">
+            <div class="col-md-4">
+                <div class="article-category"><a href="#">
+                        @switch($item->status)
+                        @case(0)
+                        <td class="status_badge"><a href="#" class="badge badge-danger text-light"
+                                id="report_{{ $item->id }}_status">Unhandled</a></td>
+                        @break
+                        @case(1)
+                        <td class="status_badge"><a href="#" class="badge badge-warning text-light"
+                                id="report_{{ $item->id }}_status">Belum Konfirmasi</a></td>
+                        @break
+                        @case(2)
+                        <td class="status_badge"><a href="#" class="badge badge-info text-light"
+                                id="report_{{ $item->id }}_status">Dalam Pengerjaan</a></td>
+                        @break
+                        @case(3)
+                        <td class="status_badge"><a href="#" class="badge badge-success text-light"
+                                id="report_{{ $item->id }}_status">Masalah Selesai</a></td>
+                        @break
+                        @default
+
+                        @endswitch
+                    </a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="article-category"><a href="#">{{ $item->actions_count }} Aksi</a>
+            <div class="col-md-2">
+                <div class="article-category"><a href="{{ route('report.show', $item->id) }}">{{ $item->actions_count }} Aksi</a>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="article-category"><a href="#">{{ $item->comments_count }} Komentar</a>
+            <div class="col-md-2">
+                <div class="article-category"><a href="{{ route('report.show', $item->id) }}">{{ $item->comments_count }} Komentar</a>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="article-category"><a href="#">{{ $item->supports_count }} Dukungan</a>
                 </div>
             </div>
@@ -74,8 +129,6 @@
     <p class="lead">
         Sorry we can't find any data, to get rid of this message, make at least 1 entry.
     </p>
-    <a href="#" class="btn btn-primary mt-4">Create new One</a>
-    <a href="#" class="mt-4 bb">Need Help?</a>
 </div>
 @endforelse
 
@@ -116,7 +169,7 @@
             $('#report_id').val(id);
 
             var title = $('#report_' + id + '_title').html();
-            var content = "{!! $item->content !!}";
+            var content = $('#report_'+ id +'_content').html();
 
             $('#content_update_form').summernote({
                 toolbar: []
@@ -156,6 +209,46 @@
                     });
                 }
             });
+        });
+
+        $('.btn-support').on('click', function () {
+            var id_report = $(this).data('id');
+
+            if ($(this).hasClass('liked')) {
+                $.ajax({
+                    url: "{{ url('user/report/unsupport') }}" + '/' + id_report,
+                    type: "DELETE",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function (data) {
+                        $('.btn-support').removeClass('liked');
+                    },
+                    error: function (data) {
+                        swal('Laporan gagal dihapus dari dukungan.', {
+                            buttons: false,
+                            timer: 2000,
+                        });
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: "{{ url('user/report/support') }}" + '/' + id_report,
+                    type: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function (data) {
+                        $('.btn-support').addClass('liked');
+                    },
+                    error: function (data) {
+                        swal('Laporan gagal didukung.', {
+                            buttons: false,
+                            timer: 2000,
+                        });
+                    }
+                });
+            }
         });
     });
 

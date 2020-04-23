@@ -17,11 +17,17 @@ class PeopleMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
         // Check role
         $role = Auth::user()->role;
 
-        if (Auth::check() && $role == 1) {
+        if ($role == 1) {
             return $next($request);
+        } else {
+            return abort(403);
         }
     }
 }

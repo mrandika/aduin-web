@@ -5,18 +5,57 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Master\Report\Report;
+use App\Model\Master\Report\ReportSupport;
+use App\Model\Master\Instance\Instance;
 use Auth;
 
 class ReportController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function support_report($id)
     {
-        $this->middleware('people')->except('update_seen_count');
+        $support = new ReportSupport;
+        $support->reports_id = $id;
+        $support->users_id = Auth::id();
+        $support->save();
+
+        return response()->json($support);
+    }
+
+    public function unsupport_report($id)
+    {
+        $support = ReportSupport::where(['reports_id' => $id, 'users_id' => Auth::id()])->first();
+        $support->delete();
+
+        return response()->json($support);
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->post('keyword');
+        $search = Report::active()->newest()->relation()->searchQuery($keyword)->get();
+
+        $reports = Report::active()->newest()->relation()->paginate(15);
+        $instances = Instance::all();
+        $newreportfinish = Report::resolved()->relation()->take(5)->orderBy('updated_at', 'desc')->get();
+
+        return view('home')->with([
+            'search' => $search,
+            'reports' => $reports,
+            'instances' => $instances,
+            'finishnew' => $newreportfinish
+            // 'units' => $units,
+        ]);
+
+        $instances = Instance::all();
+        $newreportfinish = Report::resolved()->relation()->take(5)->orderBy('updated_at', 'desc')->get();
+
+        return view('home')->with([
+            'mode' => 'search',
+            'reports' => $reports,
+            'instances' => $instances,
+            'finishnew' => $newreportfinish
+            // 'units' => $units,
+        ]);
     }
 
     /**
@@ -43,14 +82,12 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $instance_id = $request->post('instance_id');
-        $unit_id = $request->post('unit_id');
         $title = $request->post('title');
         $content = $request->post('content');
 
         $report = new Report;
         $report->users_id = Auth::id();
         $report->instances_id = $instance_id ?? null;
-        $report->instance_units_id = $unit_id ?? null;
         $report->title = $title;
         $report->content = $content;
         $report->save();
@@ -73,6 +110,14 @@ class ReportController extends Controller
         $content = $request->post('content');
 
         $report = Report::find($id);
+
+        if (Auth::id() != $report->users_id) {
+            return response()->json([
+                'code' => 403,
+                'message' => 'Forbidden'
+            ], 403);
+        }
+
         $report->title = $title;
         $report->content = $content;
         $report->save();
@@ -91,7 +136,16 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        $report = Report::find($id)->delete();
+        $report = Report::find($id);
+
+        if (Auth::id() != $report->users_id) {
+            return response()->json([
+                'code' => 403,
+                'message' => 'Forbidden'
+            ], 403);
+        }
+
+        $report->delete();
 
         return response()->json([
             'code' => 200,
