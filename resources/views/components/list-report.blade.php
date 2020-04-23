@@ -38,7 +38,7 @@
 
                         @endswitch
                         <td><a href="#" class="badge badge-light"
-                                id="report_{{ $item->id }}_date">@ymddate($item->created_at)</a></td>
+                                id="report_{{ $item->id }}_date">@ymdtimedate($item->created_at)</a></td>
                         <td><a href="javascript:void(0)" class="btn btn-primary update_report" data-id="{{ $item->id }}"
                                 data-toggle="modal" data-target="#updateModal">Detail</a></td>
                     </tr>

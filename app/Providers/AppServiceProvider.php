@@ -35,20 +35,5 @@ class AppServiceProvider extends ServiceProvider
 
             return \Carbon\Carbon::parse($date)->format('d-m-Y').' pada '.\Carbon\Carbon::parse($date)->format('H:i');
         });
-
-        Blade::directive('reportstatus', function ($expression) {
-            list($status) = $expression;
-
-            return $expression;
-
-            // switch((int)$status) {
-            //     case 0:
-            //         return "Ditutup";
-            //     break;
-            //         case 1:
-            //             return "Aktif";
-            //         break;
-            // }
-        });
     }
 }

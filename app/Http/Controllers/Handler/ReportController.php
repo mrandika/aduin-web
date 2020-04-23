@@ -43,7 +43,7 @@ class ReportController extends Controller
             }
         }
 
-        $reports = Report::whereIn('id', $reports_by_user)->get();
+        $reports = Report::whereIn('id', $reports_by_user)->newest()->get();
 
         return view('handler/report/index')->with([
             'data' => 'handled',
