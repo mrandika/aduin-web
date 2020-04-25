@@ -37,7 +37,7 @@ class GoogleController extends Controller
                     'photo_url' => $socialite->avatar,
                     'email' => $socialite->email,
                     'google_id'=> $socialite->id,
-                    'password' => encrypt(explode('@', $socialite->email)[0].str_random(12))
+                    'password' => bcrypt(explode('@', $socialite->email)[0].str_random(12))
                 ]);
                 Auth::login($newUser);
      

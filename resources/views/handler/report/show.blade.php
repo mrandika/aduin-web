@@ -61,6 +61,8 @@
                                 <div class="ticket-description">
                                     <div id="content">{!! $report->content !!}</div>
 
+                                    <div id="report_map" style="width: 100%; height:400px;"></div>
+
                                     <div class="ticket-divider">
 
                                     </div>
@@ -135,9 +137,37 @@
 
 @push('handler-js-lib')
 <script src="{{ url('assets/modules/summernote/summernote-bs4.js') }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_API_KEY') }}&callback=initMap" async defer>
+</script>
 @endpush
 
 @push('handler-js')
+<script>
+    var map;
+
+    function initMap() {
+        var latitude = Number($('#lat').val());
+        var longitude = Number($('#lng').val());
+
+        map = new google.maps.Map(document.getElementById('report_map'), {
+            center: {
+                lat: latitude,
+                lng: longitude
+            },
+            zoom: 15
+        });
+
+        var marker = new google.maps.Marker({
+            position: {
+                lat: latitude,
+                lng: longitude
+            },
+            map: map
+        });
+    }
+
+</script>
+
 <script>
     $(document).ready(function () {
 
