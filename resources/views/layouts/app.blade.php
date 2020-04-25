@@ -5,26 +5,40 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Layout &rsaquo; Top Navigation &mdash; Stisla</title>
+    <title>Layout &rsaquo; Transprent Sidebar &mdash; Stisla</title>
 
     <!-- General CSS Files -->
-    <link rel="stylesheet" href="{{ url('assets/modules/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/modules/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/modules/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url('assets/modules/fontawesome/css/all.min.css')}}">
 
     <!-- CSS Libraries -->
     @stack('css')
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ url('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ url('assets/css/components.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{ url('assets/css/components.css')}}">
+    <!-- Start GA -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-94034622-3');
+
+    </script>
+    <!-- /END GA -->
 </head>
 
-<body class="layout-3">
+<body class="layout-2">
     <div id="app">
-        <div class="main-wrapper container">
+        <div class="main-wrapper">
             <div class="navbar-bg"></div>
             <nav class="navbar navbar-expand-lg main-navbar">
-                <a href="/" class="navbar-brand sidebar-gone-hide">{{ env('APP_NAME') }}</a>
+                <a href="index.html" class="navbar-brand sidebar-gone-hide">LaporIn</a>
                 <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
                 <div class="nav-collapse">
                     <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
@@ -122,16 +136,16 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             {{-- <div class="dropdown-title">Logged in 5 min ago</div>
-                            <a href="features-profile.html" class="dropdown-item has-icon">
-                                <i class="far fa-user"></i> Profile
-                            </a>
-                            <a href="features-activities.html" class="dropdown-item has-icon">
-                                <i class="fas fa-bolt"></i> Activities
-                            </a>
-                            <a href="features-settings.html" class="dropdown-item has-icon">
-                                <i class="fas fa-cog"></i> Settings
-                            </a>
-                            <div class="dropdown-divider"></div> --}}
+                        <a href="features-profile.html" class="dropdown-item has-icon">
+                            <i class="far fa-user"></i> Profile
+                        </a>
+                        <a href="features-activities.html" class="dropdown-item has-icon">
+                            <i class="fas fa-bolt"></i> Activities
+                        </a>
+                        <a href="features-settings.html" class="dropdown-item has-icon">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                        <div class="dropdown-divider"></div> --}}
                             <a href="/logout" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
@@ -140,22 +154,21 @@
                     @endauth
                 </ul>
             </nav>
-
-            <nav class="navbar navbar-secondary navbar-expand-lg">
-                <div class="container">
-                    <ul class="navbar-nav">
+            <div class="main-sidebar">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand sidebar-gone-show"><a href="index.html">Stisla</a></div>
+                    <ul class="sidebar-menu">
                         @yield('dashboardNav')
                     </ul>
-                </div>
-            </nav>
+                </aside>
+            </div>
 
             <!-- Main Content -->
             @yield('content')
 
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; {{ date('Y')}} <div class="bullet"></div> Aduin By <a href="https://github.com/mrandika">Muhamad
-                        Rizki Andika</a>
+                    Copyright &copy; {{ date('Y')}} <div class="bullet"></div> LaporIn By <a href="https://github.com/aqli1107">Aqli Hamdan</a>
                 </div>
                 <div class="footer-right">
 
@@ -165,23 +178,24 @@
     </div>
 
     <!-- General JS Scripts -->
-    <script src="{{ url('assets/modules/jquery.min.js') }}"></script>
-    <script src="{{ url('assets/modules/popper.js') }}"></script>
-    <script src="{{ url('assets/modules/tooltip.js') }}"></script>
-    <script src="{{ url('assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url('assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
-    <script src="{{ url('assets/modules/moment.min.js') }}"></script>
-    <script src="{{ url('assets/js/stisla.js') }}"></script>
+    <script src="{{ url('assets/modules/jquery.min.js')}}"></script>
+    <script src="{{ url('assets/modules/popper.js')}}"></script>
+    <script src="{{ url('assets/modules/tooltip.js')}}"></script>
+    <script src="{{ url('assets/modules/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url('assets/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
+    <script src="{{ url('assets/modules/moment.min.js')}}"></script>
+    <script src="{{ url('assets/js/stisla.js')}}"></script>
 
     <!-- JS Libraies -->
+    <script src="{{ url('assets/modules/sticky-kit.js')}}"></script>
     @stack('js-lib')
 
     <!-- Page Specific JS File -->
     @stack('js')
 
     <!-- Template JS File -->
-    <script src="{{ url('assets/js/scripts.js') }}"></script>
-    <script src="{{ url('assets/js/custom.js') }}"></script>
+    <script src="{{ url('assets/js/scripts.js')}}"></script>
+    <script src="{{ url('assets/js/custom.js')}}"></script>
 </body>
 
 </html>

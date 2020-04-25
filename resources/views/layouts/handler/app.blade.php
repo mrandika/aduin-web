@@ -135,8 +135,7 @@
 
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; {{ date('Y')}} <div class="bullet"></div> Aduin By <a href="https://github.com/mrandika">Muhamad
-                        Rizki Andika</a>
+                    Copyright &copy; {{ date('Y')}} <div class="bullet"></div> LaporIn By <a href="https://github.com/aqli1107">Aqli Hamdan</a>
                 </div>
                 <div class="footer-right">
 

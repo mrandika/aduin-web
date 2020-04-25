@@ -1,10 +1,10 @@
 @section('handler-dashboardNav')
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-        <a href="index.html">Aduin</a>
+        <a href="index.html">LaporIn</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">Adu</a>
+        <a href="index.html">Lapor</a>
     </div>
     <ul class="sidebar-menu">
         <li class="menu-header">Dashboard</li>
